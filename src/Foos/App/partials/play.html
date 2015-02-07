@@ -6,13 +6,13 @@
             <div class="col-lg-6" ng-repeat="team in match.teams">
                 <div class="input-group">
                     <input type="text" class="form-control" ng-model="team.name" placeholder="Team {{$index + 1}}" />
-                    <span class="input-group-addon" id="basic-addon1">{{team.score}}</span>
+                    <span class="input-group-addon">{{team.score}}</span>
                 </div>
                 <div class="input-group" ng-repeat="player in team.players">
                     <input type="text" class="form-control" ng-model="player.name" placeholder="Player {{$index + 1}}" />
-                    <span class="input-group-addon" id="basic-addon1" ng-click="subtractPoint(team, player)">-</span>
-                    <span class="input-group-addon" id="basic-addon1">{{player.points}}</span>
-                    <span class="input-group-addon" id="basic-addon1" ng-click="addPoint(team, player)">+</span>
+                    <span class="input-group-addon cursor-pointer" ng-click="subtractPoint(team, player)">-</span>
+                    <span class="input-group-addon">{{player.points}}</span>
+                    <span class="input-group-addon cursor-pointer" ng-click="addPoint(team, player)">+</span>
                 </div>
             </div>
         </div>
