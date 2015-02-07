@@ -1,22 +1,16 @@
-﻿angular.module('app')
-    .service('authService', ['$rootScope',
-        function ($rootScope) {
-        this.signin = function (name, pass) {
-            //todo: actual authentication, local persistence
-                $rootScope.user = {
-                    name: name,
-                    isAuthenticated: true
-                }
-            return $rootScope.user;
-        };
+﻿angular.module('app').service('authService', [function() {
+    this.user = { name: undefined, isAuthenticated: false };
 
-        this.signout = function (user) {
-            if (user.isAuthenticated) {
-                user.name = "";
-                user.pass = "";
-                user.isAuthenticated = false;
-                $rootScope.user = user;
-            }
-            return user;
-        };
-    }]);
+    //todo: actual authentication, local persistence
+    this.signin = function(name, pass) {
+        this.user.name = name;
+        this.user.isAuthenticated = true;
+    };
+    
+    this.signout = function() {
+        if (this.user.isAuthenticated) {
+            this.user.name = undefined;
+            this.user.isAuthenticated = false;
+        }
+    };
+}]);

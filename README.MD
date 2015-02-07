@@ -8,8 +8,7 @@ normalize the teams, winners, players, tables (configured through orm or switch 
 foreign key off names (not a great idea, but an okay stop gap)
 track wins/losses of teams and players
 add unified system for success/error messages
-change main navigation active class based on url
 change signin/out based on auth
-improve state handling, particularly for signing in/out
 add proper authentication and local persistence
+get servicestack to show changes on refresh without having to recompile
 investigate using servicestack.bundler to simplify extending app (not having to manually add new js files to list)

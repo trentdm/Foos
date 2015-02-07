@@ -175,7 +175,6 @@
     <Content Include="App\fonts\glyphicons-halflings-regular.woff2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="README.MD" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

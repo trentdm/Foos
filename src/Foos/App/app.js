@@ -83,21 +83,21 @@ app.config(['$stateProvider', '$httpProvider',
     }
 ]);
 
-app.run(['$rootScope', '$state', 'authModal',
-    function ($rootScope, $state, authModal) {
+app.run(['$rootScope', '$state', 'authModal', 'authService',
+    function ($rootScope, $state, authModal, authService) {
 
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        var requireLogin = toState.data.requireLogin;
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+            var requireLogin = toState.data.requireLogin;
 
-        if (requireLogin && typeof $rootScope.user === 'undefined') {
-            event.preventDefault();
+            if (requireLogin && !authService.user.isAuthenticated) {
+                event.preventDefault();
 
-            authModal().then(function () {
-                return $state.go(toState.name, toParams);
+                authModal().then(function () {
+                    return $state.go(toState.name, toParams);
                 })
-                .catch(function () {
-                    return $state.go('home');
-                });
+                    .catch(function () {
+                        return $state.go($state.name);
+                    });
             }
-    });
-}]);
+        });
+    }]);

@@ -1,4 +1,5 @@
-﻿using Foos.Api.Operations;
+﻿using System.IO;
+using Foos.Api.Operations;
 using Foos.Api.Services;
 using ServiceStack;
 using ServiceStack.Data;
@@ -13,6 +14,17 @@ namespace Foos.AppStart
 
         public override void Configure(Funq.Container container)
         {
+            Plugins.Add(new RequestLogsFeature());
+
+            //for automatic reload of running content after saving changes in IDE
+            SetConfig(new HostConfig
+            {
+            #if DEBUG
+            DebugMode = true,
+            WebHostPhysicalPath = Path.GetFullPath(Path.Combine("~".MapServerPath(), "..", "..")),
+            #endif
+            });
+
             container.Register<IDbConnectionFactory>( //":memory:" for non-persistance, @"Data Source=foos.db;Version=3" for persistence
                 new OrmLiteConnectionFactory(@"Data Source=foos.db;Version=3", SqliteDialect.Provider));
 
