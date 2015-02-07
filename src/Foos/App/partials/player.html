@@ -1,0 +1,21 @@
+﻿<div class="inner cover">
+    <h2>Players</h2>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Points</th>
+                <!--<th>Winner</th>-->
+            </tr>
+            <tr ng-repeat="player in players">
+                <td>{{player.Id}}</td>
+                <td>{{player.Name}}</td>
+                <td>{{player.Points}}</td>
+                <!--<td>
+                    <p><span class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-show="player.IsWinner"></span></p>
+                </td>-->
+            </tr>
+        </tbody>
+    </table>
+</div>

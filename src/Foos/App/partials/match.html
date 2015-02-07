@@ -1,0 +1,31 @@
+﻿<div class="inner cover">
+    <h2>Matches</h2>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Teams</th>
+                <th>Scores</th>
+                <th>Players</th>
+                <th>Winner</th>
+            </tr>
+            <tr ng-repeat="match in matches">
+                <td>{{match.Id}}</td>
+                <td>{{match.DateTime}}</td>
+                <td>
+                    <p ng-repeat="team in match.Teams">{{team.Name}}</p>
+                </td>
+                <td>
+                    <p ng-repeat="team in match.Teams">{{team.Score}}</p>
+                </td>
+                <td>
+                    <p ng-repeat="team in match.Teams">{{team.Players[0].Name}}, {{team.Players[1].Name}}</p>
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-star-empty" ng-repeat="team in match.Teams" aria-hidden="true" ng-show="team.IsWinner"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
