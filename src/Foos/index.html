@@ -22,12 +22,12 @@
         <div class="header">
             <nav>
                 <ul class="nav nav-pills pull-right">
-                    <!--todo: change active class based on url, change signin/out based on auth-->
                     <li ng-class="{active: isActive('home')}"><a href="#">Home</a></li>
                     <li ng-class="{active: isActive('play')}"><a href="#/play">Play</a></li>
                     <li ng-class="{active: isActive('match')}"><a href="#/match">Matches</a></li>
                     <li ng-class="{active: isActive('team')}"><a href="#/team">Teams</a></li>
                     <li ng-class="{active: isActive('player')}"><a href="#/player">Players</a></li>
+                    <li ng-class="{active: isActive('about')}"><a href="#/about">About</a></li>
                     <li ng-show="!user.isAuthenticated"><a href ng-click="signin()">Sign in</a></li>
                     <li class="dropdown" ng-show="user.isAuthenticated" dropdown>
                         <a href class="dropdown-toggle" dropdown-toggle>{{user.name}} <span class="caret"></span></a>

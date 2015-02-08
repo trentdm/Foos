@@ -11,12 +11,12 @@
                 <th>Winner</th>
             </tr>
             <tr ng-repeat="team in teams">
-                <td>{{team.Id}}</td>
-                <td>{{team.Name}}</td>
-                <td>{{team.Players[0].Name}}</td>
-                <td>{{team.Players[1].Name}}</td>
-                <td>{{team.Score}}</td>
-                <td><span class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-show="team.IsWinner"></span></td>
+                <td>{{team.id}}</td>
+                <td>{{team.name}}</td>
+                <td>{{team.players[0].name}}</td>
+                <td>{{team.players[1].name}}</td>
+                <td>{{team.score}}</td>
+                <td><span class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-show="team.isWinner"></span></td>
             </tr>
         </tbody>
     </table>

@@ -11,19 +11,19 @@
                 <th>Winner</th>
             </tr>
             <tr ng-repeat="match in matches">
-                <td>{{match.Id}}</td>
-                <td>{{match.DateTime}}</td>
+                <td>{{match.id}}</td>
+                <td>{{match.dateTime}}</td>
                 <td>
-                    <p ng-repeat="team in match.Teams">{{team.Name}}</p>
+                    <p ng-repeat="team in match.teams">{{team.name}}</p>
                 </td>
                 <td>
-                    <p ng-repeat="team in match.Teams">{{team.Score}}</p>
+                    <p ng-repeat="team in match.teams">{{team.score}}</p>
                 </td>
                 <td>
-                    <p ng-repeat="team in match.Teams">{{team.Players[0].Name}}, {{team.Players[1].Name}}</p>
+                    <p ng-repeat="team in match.teams">{{team.players[0].name}}, {{team.players[1].name}}</p>
                 </td>
                 <td>
-                    <span class="glyphicon glyphicon-star-empty" ng-repeat="team in match.Teams" aria-hidden="true" ng-show="team.IsWinner"></span>
+                    <span class="glyphicon glyphicon-star-empty" ng-repeat="team in match.teams" aria-hidden="true" ng-show="team.isWinner"></span>
                 </td>
             </tr>
         </tbody>
