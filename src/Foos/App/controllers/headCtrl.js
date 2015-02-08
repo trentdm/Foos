@@ -2,11 +2,10 @@
     $scope.alerts = [];
     
     $scope.$on('alert', function (event, alert) {
-        var newLength = $scope.alerts.push(alert);
-
+        $scope.alerts.push(alert);
         $timeout(function () {
-            $scope.alerts.splice((newLength - 1), 1);
-        }, 5000);
+            $scope.alerts.splice($scope.alerts.indexOf(alert), 1);
+        }, 3000);
     });
 
     $scope.closeAlert = function (index) {

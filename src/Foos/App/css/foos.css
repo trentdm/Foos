@@ -1,9 +1,13 @@
 .alert-container {
     position: fixed; 
     z-index: 3;
-    top: 8px;
+    top: 85px;
     right: 8px;
     opacity: 0.9;
+}
+
+.alert {
+    min-width: 300px;
 }
 
 .animate.ng-enter {

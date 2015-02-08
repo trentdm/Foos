@@ -11,14 +11,18 @@
     };
 
     this.signin = function(name, pass) {
-        this.user.name = name;
-        this.user.isAuthenticated = true;
-        return this.user;
+        return $http.post('/auth', {
+            userName: name,
+            password: pass,
+            rememberMe: true
+        });
     };
 
     this.signout = function() {
         if (this.user.isAuthenticated) {
             this.user.name = undefined;
+            this.userId = undefined;
+            this.sessionId = undefined;
             this.user.isAuthenticated = false;
         }
         return this.user;

@@ -6,6 +6,7 @@ namespace Foos.Api.Operations
 {
     [Route("/api/match")]
     [Route("/api/match/{id}")]
+    [Authenticate(ApplyTo.Post | ApplyTo.Put | ApplyTo.Delete)] 
     public class Match
     {
         [AutoIncrement]

@@ -69,6 +69,7 @@ app.config(['$stateProvider', '$httpProvider',
 
             return {
                 responseError: function (rejection) {
+                    return rejection;//may want to force modal on 401 auth failure, but not at this time
                     if (rejection.status !== 401) {
                         return rejection;
                     }
