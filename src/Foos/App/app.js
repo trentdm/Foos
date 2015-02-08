@@ -47,6 +47,13 @@ app.config(['$stateProvider', '$httpProvider',
                 requireLogin: false
             }
         });
+        $stateProvider.state('about', {
+            url: '/about',
+            templateUrl: 'App/partials/about.html',
+            data: {
+                requireLogin: false
+            }
+        });
 
         $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
             var authModal, $http, $state;

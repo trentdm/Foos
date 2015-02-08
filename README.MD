@@ -7,9 +7,9 @@ Debugging logs can be viewed at /requestlogs
 
 ToDo
 ===
+track wins/losses of teams and players
 normalize the teams, winners, players, tables (configured through orm or switch to writing sprocs)
 foreign key off names (not a great idea, but an okay stop gap)
-track wins/losses of teams and players
 add unified system for success/error messages
 add proper authentication and local persistence
-investigate using servicestack.bundler to simplify extending app (not having to manually add new js files to list)
+investigate a bundler for scripts, app js, and css directories. Minimize overhead of extending or publishing app (MVC was good at this)
