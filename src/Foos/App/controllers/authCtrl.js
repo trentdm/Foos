@@ -1,7 +1,10 @@
-﻿angular.module('app').controller('AuthCtrl',
-    ['$scope', 'authService', function ($scope, authService) {
+﻿app.controller('AuthCtrl', ['$scope', 'authService', function($scope, authService) {
+    $scope.register = function(name, pass, email) {
+        var user = authService.register(name, pass, email);
+        $scope.$close(user);
+    };
 
-    $scope.signin = function (name, pass) {
+    $scope.signin = function(name, pass) {
         var user = authService.signin(name, pass);
         $scope.$close(user);
 

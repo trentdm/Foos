@@ -1,3 +1,3 @@
-﻿angular.module('app').controller('HomeCtrl', ['$scope', function ($scope) {
+﻿app.controller('HomeCtrl', ['$scope', function ($scope) {
 
 }]);

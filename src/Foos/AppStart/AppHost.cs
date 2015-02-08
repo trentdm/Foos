@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Foos.Api.Operations;
 using Foos.Api.Services;
 using Funq;
@@ -17,6 +18,10 @@ namespace Foos.AppStart
 
         public override void Configure(Container container)
         {
+            SetConfig(new HostConfig
+                {
+                    HandlerFactoryPath = "api",
+                });
             SetJsonCamelCase();
             EnableLogging();
             EnableAutomaticContentReload();
@@ -78,14 +83,7 @@ namespace Foos.AppStart
             container.Register<ICacheClient>(new MemoryCacheClient());
             var userRep = new OrmLiteAuthRepository(container.Resolve<IDbConnectionFactory>());
             container.Register<IUserAuthRepository>(userRep);
+            container.Resolve<IUserAuthRepository>().InitSchema();
         }
-
-        //may use this later to simplify routes across the board
-        //public override RouteAttribute[] GetRouteAttributes(Type requestType)
-        //{
-        //    var routes = base.GetRouteAttributes(requestType);
-        //    routes.Each(x => x.Path = "/api" + x.Path);
-        //    return routes;
-        //}
     }
 }
