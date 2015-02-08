@@ -17,8 +17,11 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-controller="NavCtrl">
+<body ng-controller="HeadCtrl" ng-cloak>
     <div class="container">
+        <div class="alert-container">
+            <alert class="animate" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>                
+        </div>
         <div class="header">
             <nav>
                 <ul class="nav nav-pills pull-right">
@@ -50,10 +53,11 @@
     </div>
 
     <script src="App/scripts/angular.min.js"></script>
+    <script src="App/scripts/angular-animate.min.js"></script>
     <script src="App/scripts/angular-ui-router.min.js"></script>
     <script src="App/scripts/ui-bootstrap-tpls-0.12.0.min.js"></script>
     <script src="App/app.js"></script>
-    <script src="App/controllers/navCtrl.js"></script>
+    <script src="App/controllers/headCtrl.js"></script>
     <script src="App/controllers/playCtrl.js"></script>
     <script src="App/controllers/homeCtrl.js"></script>
     <script src="App/controllers/teamCtrl.js"></script>
