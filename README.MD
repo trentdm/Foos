@@ -24,7 +24,6 @@ Foos is an open source project, licensed under the Apache License.
 * track wins/losses of teams and players
 * normalize the teams, winners, players, tables (configured through orm or switch to writing sprocs)
 * foreign key off names (not a great ide a, but an okay stop gap)
-* use jira typeahead styling for entering team and players
 * consider adding local persistence for user, ss-id cookie for session id, user is encrypted, so not sure how to restore that, and I dont want to maintain the auth state separately
 * investigate further levels of recursion for get and post of nested objects
 * fix for requiring rootscope to broadcast alerts (should be able to $scope.$emit and have parent headCtrl receive (but my implementation is not compatible with ui.router seeing it as a parent/child relationship I think)
