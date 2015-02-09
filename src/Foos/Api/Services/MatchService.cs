@@ -57,7 +57,7 @@ namespace Foos.Api.Services
         {
             using (var db = DbConnectionFactory.OpenDbConnection())
             {
-                var id = db.Delete(request);
+                db.Delete(request);
                 return new MatchResponse {Results = new List<Match> {request}};
             }
         }

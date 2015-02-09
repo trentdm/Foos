@@ -14,7 +14,7 @@
         return $http.post('/auth', {
             userName: name,
             password: pass,
-            rememberMe: true
+            //rememberMe: true
         });
     };
 
