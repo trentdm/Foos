@@ -11,7 +11,7 @@
     };
 
     this.signin = function(name, pass) {
-        return $http.post('/auth', {
+        return $http.post('/auth/credentials', {
             userName: name,
             password: pass,
             //rememberMe: true

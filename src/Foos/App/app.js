@@ -69,7 +69,7 @@ app.config(['$stateProvider', '$httpProvider',
 
             return {
                 responseError: function (rejection) {
-                    //return rejection;//may want to force modal on 401 auth failure, but not at this time
+                    return rejection;//may want to force modal on 401 auth failure, but not at this time
                     if (rejection.status !== 401) {
                         return rejection;
                     }
@@ -101,10 +101,13 @@ app.run(['$rootScope', '$state', 'authModal', 'authService',
             if (requireLogin && !authService.user.isAuthenticated) {
                 event.preventDefault();
 
-                authModal().then(function () {
-                    return $state.go(toState.name, toParams);
-                })
-                    .catch(function () {
+                authModal()
+                    .success(function(data) {
+                        return $state.go(toState.name, toParams);
+                    })
+                    .error(function(data) {
+                    })
+                    .catch(function() {
                         return $state.go('home');
                     });
             }
