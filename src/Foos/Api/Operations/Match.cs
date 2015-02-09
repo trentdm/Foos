@@ -12,6 +12,7 @@ namespace Foos.Api.Operations
         [AutoIncrement]
         public int Id { get; set; }
         public string DateTime { get; set; }
+        public string UserName { get; set; }
         [Reference]
         public List<Team> Teams { get; set; }
     }

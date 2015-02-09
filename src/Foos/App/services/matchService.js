@@ -1,4 +1,4 @@
-﻿app.service('matchService', ['$http', function($http) {
+﻿app.service('matchService', ['$http', 'authService', function($http, authService) {
     this.submitMatch = function(match) {
         return $http.post('/api/match', match);
     };

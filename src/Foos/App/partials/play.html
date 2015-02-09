@@ -2,20 +2,20 @@
     <h1 class="cover-heading">Foosball Scores and Bragging Central</h1>
     <p class="lead">Track your scores here and access the data for bragging rights later!</p>
     <p class="lead">
-        <div class="form-group row">
-            <div class="col-lg-6" ng-repeat="team in match.teams">
-                <div class="input-group">
-                    <input type="text" class="form-control" ng-model="team.name" placeholder="Team {{$index + 1}}" />
-                    <span class="input-group-addon">{{team.score}}</span>
-                </div>
-                <div class="input-group" ng-repeat="player in team.players">
-                    <input type="text" class="form-control" ng-model="player.name" placeholder="Player {{$index + 1}}" />
-                    <span class="input-group-addon cursor-pointer" ng-click="subtractPoint(team, player)">-</span>
-                    <span class="input-group-addon">{{player.points}}</span>
-                    <span class="input-group-addon cursor-pointer" ng-click="addPoint(team, player)">+</span>
-                </div>
+    <div class="form-group row">
+        <div class="col-lg-6" ng-repeat="team in match.teams">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="team.name" placeholder="Team {{$index + 1}}" typeahead="name for name in teamNames | filter:$viewValue | limitTo:5" />
+                <span class="input-group-addon">{{team.score}}</span>
+            </div>
+            <div class="input-group" ng-repeat="player in team.players">
+                <input type="text" class="form-control" ng-model="player.name" placeholder="Player {{$index + 1}}" typeahead="name for name in playerNames | filter:player.name | limitTo:5" />
+                <span class="input-group-addon cursor-pointer" ng-click="subtractPoint(team, player)">-</span>
+                <span class="input-group-addon">{{player.points}}</span>
+                <span class="input-group-addon cursor-pointer" ng-click="addPoint(team, player)">+</span>
             </div>
         </div>
+    </div>
 
     <p class="text-center">
         <button ng-disabled="!canSubmitMatch" ng-click="submitMatch(match)" class="btn btn-lg btn-primary">Submit Match!</button>

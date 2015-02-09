@@ -1,31 +1,11 @@
-﻿app.controller('PlayCtrl', ['$rootScope', '$scope', 'matchService', function($rootScope, $scope, matchService) {
-    var getFreshMatch = function() {
-        return {
-            dateTime: new Date().toLocaleString(),
-            teams: [
-                {
-                    name: "",
-                    score: 0,
-                    players: [
-                        { name: "", points: 0 },
-                        { name: "", points: 0 }
-                    ]
-                },
-                {
-                    name: "",
-                    score: 0,
-                    players: [
-                        { name: "", points: 0 },
-                        { name: "", points: 0 }
-                    ]
-                }
-            ]
-        };
-    };
-
-    $scope.match = getFreshMatch();
-
+﻿app.controller('PlayCtrl', ['$rootScope', '$scope', 'playService', function($rootScope, $scope, playService) {
+    $scope.match = playService.getFreshMatch();
+    playService.getTeamNames(function (data) { $scope.teamNames = data; });
+    playService.getPlayerNames(function(data) { $scope.playerNames = data; });
     $scope.canSubmitMatch = false;
+
+    $scope.selected = undefined;
+    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
     $scope.addPoint = function(team, user) {
         if (team.score < 8 && user.points < 8) {
@@ -57,7 +37,7 @@
     
     var submitSuccess = function (data, status, headers, config) {
         if (status == 200) {
-            $scope.match = getFreshMatch();
+            $scope.match = playService.getFreshMatch();
             updateMatch();
             $rootScope.$broadcast('alert', { type: 'success', msg: 'Match submitted, thanks!'});
         } else {
@@ -70,7 +50,7 @@
     };
 
     $scope.submitMatch = function(match) {
-        matchService.submitMatch(match)
+        playService.submitMatch(match)
             .success(submitSuccess)
             .error(submitError);
     };

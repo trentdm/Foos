@@ -102,10 +102,8 @@ app.run(['$rootScope', '$state', 'authModal', 'authService',
                 event.preventDefault();
 
                 authModal()
-                    .success(function(data) {
+                    .then(function(data) {
                         return $state.go(toState.name, toParams);
-                    })
-                    .error(function(data) {
                     })
                     .catch(function() {
                         return $state.go('home');
