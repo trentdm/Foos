@@ -13,7 +13,7 @@ namespace Foos.AppStart
 {
     public class AppHost : AppSelfHostBase
     {
-        public AppHost() : base("HttpListener Self-Host", typeof(HelloService).Assembly) { }
+        public AppHost() : base("HttpListener Self-Host", typeof(MatchService).Assembly) { }
 
         public override void Configure(Container container)
         {
@@ -70,12 +70,10 @@ namespace Foos.AppStart
 
         private void EnableAuthentication(Container container)
         {
-            Plugins.Add(new AuthFeature(() => new AuthUserSession(),
-                                        new IAuthProvider[]
-                                            {
-                                                new BasicAuthProvider(), //Sign-in with Basic Auth
-                                                new CredentialsAuthProvider() //HTML Form post of UserName/Password credentials
-                                            }));
+            Plugins.Add(new AuthFeature(() => new AuthUserSession(), new IAuthProvider[] {
+                new BasicAuthProvider(), //Sign-in with Basic Auth
+                new CredentialsAuthProvider() //HTML Form post of UserName/Password credentials
+            }) {IncludeAssignRoleServices = false}); //Not utilizing roles at this time, so simplifying API.
 
             Plugins.Add(new RegistrationFeature());
 
