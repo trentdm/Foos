@@ -1,8 +1,7 @@
-﻿app.service('playService', ['matchService', 'teamService', 'playerService', 'authService', function (matchService, teamService, playerService, authService) {
+﻿app.service('playService', ['matchService', 'teamService', 'playerService', function (matchService, teamService, playerService) {
     this.getFreshMatch = function () {
         return {
             dateTime: new Date().toLocaleString(),
-            userName: authService.user.name,
             teams: [
                 {
                     name: "",

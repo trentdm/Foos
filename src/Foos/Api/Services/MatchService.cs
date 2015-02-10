@@ -9,6 +9,10 @@ namespace Foos.Api.Services
     public class MatchService : Service
     {
         private IDbConnectionFactory DbConnectionFactory { get; set; }
+        private AuthUserSession UserSession
+        {
+            get { return base.SessionAs<AuthUserSession>(); }
+        }
 
         public MatchService(IDbConnectionFactory dbConnectionFactory)
         {
@@ -33,6 +37,7 @@ namespace Foos.Api.Services
 
         public MatchResponse Post(Match request)
         {
+            request.UserAuthId = UserSession.UserAuthId;
             using (var db = DbConnectionFactory.OpenDbConnection())
             {
                 db.Save(request, true);
@@ -46,6 +51,7 @@ namespace Foos.Api.Services
 
         public MatchResponse Put(Match request)
         {
+            request.UserAuthId = UserSession.UserAuthId;
             using (var db = DbConnectionFactory.OpenDbConnection())
             {
                 var id = db.Update(request);
