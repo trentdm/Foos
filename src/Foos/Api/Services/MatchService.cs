@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Foos.Api.Operations;
 using ServiceStack;
 using ServiceStack.Data;
@@ -11,7 +12,11 @@ namespace Foos.Api.Services
         private IDbConnectionFactory DbConnectionFactory { get; set; }
         private AuthUserSession UserSession
         {
-            get { return base.SessionAs<AuthUserSession>(); }
+            get
+            {
+                try { return base.SessionAs<AuthUserSession>(); }
+                catch { return new AuthUserSession(); } //fallback for unittesting
+            }
         }
 
         public MatchService(IDbConnectionFactory dbConnectionFactory)
@@ -28,8 +33,14 @@ namespace Foos.Api.Services
                     : db.LoadSelect<Match>(t => t.Id == request.Id);
 
                 foreach (var match in matches)
-                    foreach (var team in match.Teams)
-                        team.Players = db.Select<Player>(p => p.TeamId == team.Id);
+                {
+                    match.TeamMatches = db.LoadSelect<TeamMatch>();
+
+                    foreach (var teamMatch in match.TeamMatches)
+                    {
+                        teamMatch.PlayerMatches = db.LoadSelect<PlayerMatch>();
+                    }
+                }
 
                 return new MatchResponse { Total = matches.Count, Results = matches };
             }
@@ -37,16 +48,27 @@ namespace Foos.Api.Services
 
         public MatchResponse Post(Match request)
         {
+            request.DateTime = DateTime.Now;
             request.UserAuthId = UserSession.UserAuthId;
+
             using (var db = DbConnectionFactory.OpenDbConnection())
             {
                 db.Save(request, true);
+                
+                foreach (var teamMatch in request.TeamMatches)
+                {
+                    db.Save(teamMatch, true);
+                    db.Save(teamMatch.Team);
 
-                foreach (var team in request.Teams)
-                    db.SaveReferences(team, team.Players);
-
-                return Get(request);
+                    foreach (var playerMatch in teamMatch.PlayerMatches)
+                    {
+                        db.Save(playerMatch, true);
+                        db.Save(playerMatch.Player);
+                    }
+                }
             }
+
+            return Get(request);
         }
 
         public MatchResponse Put(Match request)

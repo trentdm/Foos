@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Foos.Api.Operations;
 using Foos.Api.Services;
 using Funq;
@@ -60,11 +61,27 @@ namespace Foos.AppStart
 #if DEBUG
                 db.DropTable<Match>();
                 db.DropTable<Team>();
+                db.DropTable<TeamMatch>();
                 db.DropTable<Player>();
+                db.DropTable<PlayerMatch>();
 #endif
                 db.CreateTableIfNotExists<Match>();
                 db.CreateTableIfNotExists<Team>();
+                db.CreateTableIfNotExists<TeamMatch>();
                 db.CreateTableIfNotExists<Player>();
+                db.CreateTableIfNotExists<PlayerMatch>();
+
+                if (!db.TableExists<Position>())
+                {
+                    db.CreateTable<Position>();
+                    db.InsertAll(new List<Position>
+                    {
+                        new Position {Id = 0, Name = "Unspecified"}, 
+                        new Position {Id = 1, Name = "Front"}, 
+                        new Position {Id = 2, Name = "Back"}, 
+                        new Position {Id = 3, Name = "Solo"}
+                    });
+                }
             }
         }
 

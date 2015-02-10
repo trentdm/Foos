@@ -4,18 +4,18 @@
     playService.getPlayerNames(function(data) { $scope.playerNames = data; });
     $scope.canSubmitMatch = false;
 
-    $scope.addPoint = function(team, user) {
-        if (team.score < 8 && user.points < 8) {
+    $scope.addPoint = function(team, player) {
+        if (team.score < 8 && player.points < 8) {
             team.score++;
-            user.points++;
+            player.points++;
             updateMatch();
         }
     };
 
-    $scope.subtractPoint = function(team, user) {
-        if (team.score > 0 && user.points > 0) {
+    $scope.subtractPoint = function (team, player) {
+        if (team.score > 0 && player.points > 0) {
             team.score--;
-            user.points--;
+            player.points--;
             updateMatch();
         }
     };

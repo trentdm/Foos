@@ -22,11 +22,12 @@ Foos is an open source project, licensed under the Apache License.
 
 ##ToDo##
 * track wins/losses of teams and players
-* normalize the teams, winners, players, tables (configured through orm or switch to writing sprocs)
-* foreign key off names (not a great ide a, but an okay stop gap)
-* if existing team is selected, should auto populate and lock players
-* consider adding local persistence for user, ss-id cookie for session id, user is encrypted, so not sure how to restore that, and I dont want to maintain the auth state separately
-* investigate further levels of recursion for get and post of nested objects
+** normalize the teams, winners, players, tables (configured through orm or switch to writing sprocs)
+** make team and player names unique, can then populate the joining tables on post
+** since a model for posting a match and searching data may be different (search may include sums and averages), but SS is limited to 10 APIs and a post and search would count as two, will need to do the sums and averaging client side only.
+** incorporate position into ui and player data
+** may add third set of apis for team and players that includes summarized and averaged data in readable format, instead of putting mapping burden on client, or put into existing models but as a ignore on post property (so no data stored)
+* consider adding local persistence for user, would use ss-id cookie for session id, but username is encrypted, so not sure how to restore that to the browser for viewing, and I dont want to maintain the auth state separately
 * fix for requiring rootscope to broadcast alerts (should be able to $scope.$emit and have parent headCtrl receive (but my implementation is not compatible with ui.router seeing it as a parent/child relationship I think)
 * investigate a bundler for scripts, app js, and css directories. Minimize overhead of extending or publishing app (MVC was good at this)
 * change metadata, auth, register, etc paths to /api/{service}

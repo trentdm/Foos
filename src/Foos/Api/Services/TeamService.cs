@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Foos.Api.Operations;
+﻿using Foos.Api.Operations;
 using ServiceStack;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
@@ -30,26 +29,26 @@ namespace Foos.Api.Services
             using (var db = DbConnectionFactory.OpenDbConnection())
             {
                 db.Save(request);
-                db.SaveAllReferences(request);
                 return Get(request);
             }
         }
 
-        public TeamResponse Put(Team request)
+        public TeamMatchResponse Get(TeamMatch request)
         {
             using (var db = DbConnectionFactory.OpenDbConnection())
             {
-                var id = db.Update(request);
-                return Get(new Team { Id = id });
+                var teams = request.Id == 0 ? db.LoadSelect<TeamMatch>()
+                    : db.LoadSelect<TeamMatch>(t => t.Id == request.Id);
+                return new TeamMatchResponse { Total = teams.Count, Results = teams };
             }
         }
 
-        public TeamResponse Delete(Team request)
+        public TeamMatchResponse Post(TeamMatch request)
         {
             using (var db = DbConnectionFactory.OpenDbConnection())
             {
-                var id = db.Delete(request);
-                return new TeamResponse {Results = new List<Team> {request}};
+                db.Save(request, true);
+                return Get(request);
             }
         }
     }

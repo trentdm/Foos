@@ -76,6 +76,7 @@
     <Compile Include="Api\Operations\Match.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Api\Operations\Position.cs" />
     <Compile Include="Api\Operations\Player.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,6 +86,7 @@
     <Compile Include="Api\Services\MatchService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Api\Services\PositionService.cs" />
     <Compile Include="Api\Services\PlayerService.cs">
       <SubType>Code</SubType>
     </Compile>

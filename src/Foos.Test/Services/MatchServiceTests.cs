@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Foos.Api.Operations;
 using Foos.Api.Services;
+using Foos.Test.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
@@ -13,101 +13,80 @@ namespace Foos.Test.Services
     {
         private MatchService Service { get; set; }
         private IDbConnectionFactory DbConnectionFactory { get; set; }
+        private ITestHelper TestHelper { get; set; }
 
         [TestInitialize]
         public void Setup()
         {
             DbConnectionFactory = new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider);
+            TestHelper = new TestHelper();
+            TestHelper.SetupTestDb(DbConnectionFactory);
             Service = new MatchService(DbConnectionFactory);
-
-            using (var db = DbConnectionFactory.OpenDbConnection())
-            {
-                db.DropAndCreateTable<Match>();
-                db.DropAndCreateTable<Team>();
-                db.DropAndCreateTable<Player>();
-            }
         }
 
         [TestMethod]
         public void TestPost_DateTime()
         {
-            var request = GetStubMatch();
+            var request = TestHelper.GetStubMatch();
             Service.Post(request);
             var result = Service.Get(new Match()).Results.First();
             Assert.AreEqual(request.DateTime, result.DateTime);
         }
 
         [TestMethod]
-        public void TestPost_Team()
+        public void TestPost_TeamMatch()
         {
-            var request = GetStubMatch();
+            var request = TestHelper.GetStubMatch();
             Service.Post(request);
             var result = Service.Get(new Match()).Results.First();
-            Assert.AreEqual(request.Teams.First().Name, result.Teams.First().Name);
+            Assert.AreEqual(request.TeamMatches.First().Score, result.TeamMatches.First().Score);
         }
 
         [TestMethod]
-        public void TestPost_Player1()
+        public void TestPost_TeamMatch_Team()
         {
-            var request = GetStubMatch();
+            var request = TestHelper.GetStubMatch();
             Service.Post(request);
             var result = Service.Get(new Match()).Results.First();
-            Assert.AreEqual(request.Teams.First().Players.First().Name, result.Teams.First().Players.First().Name);
+            Assert.AreEqual(request.TeamMatches.First().Team.Name, result.TeamMatches.First().Team.Name);
         }
 
         [TestMethod]
-        public void TestPost_Player2()
+        public void TestPost_TeamMatch_Team_NameConstraint()
         {
-            var request = GetStubMatch();
+            var request = TestHelper.GetStubMatch();
+            request.TeamMatches.ForEach(tm => tm.Team.Name = "team");
             Service.Post(request);
             var result = Service.Get(new Match()).Results.First();
-            Assert.AreEqual(request.Teams.First().Players[1].Name, result.Teams.First().Players[1].Name);
+            Assert.AreEqual(request.TeamMatches.First().Team.Name, result.TeamMatches.First().Team.Name);
         }
 
-        private Match GetStubMatch()
+        [TestMethod]
+        public void TestPost_TeamMatch_PlayerMatch()
         {
-            return new Match
-            {
-                DateTime = "1234",
-                Teams = new List<Team>
-                {
-                    new Team
-                    {
-                        Name = "Team 1",
-                        IsWinner = true,
-                        Players = new List<Player>
-                        {
-                            new Player
-                            {
-                                Name = "Player 1",
-                                Points = 2
-                            },
-                            new Player
-                            {
-                                Name = "Player 2",
-                                Points = 6
-                            }
-                        }
-                    },
-                    new Team
-                    {
-                        Name = "Team 2",
-                        Players = new List<Player>
-                        {
-                            new Player
-                            {
-                                Name = "Player 3",
-                                Points = 2
-                            },
-                            new Player
-                            {
-                                Name = "Player 4",
-                                Points = 3
-                            }
-                        }
-                    }
-                }
-            };
+            var request = TestHelper.GetStubMatch();
+            Service.Post(request);
+            var result = Service.Get(new Match()).Results.First();
+            Assert.AreEqual(request.TeamMatches.First().PlayerMatches.First().Points, result.TeamMatches.First().PlayerMatches.First().Points);
+        }
+
+        [TestMethod]
+        public void TestPost_TeamMatch_PlayerMatch_Player()
+        {
+            var request = TestHelper.GetStubMatch();
+            Service.Post(request);
+            var result = Service.Get(new Match()).Results.First();
+            Assert.AreEqual(request.TeamMatches.First().PlayerMatches.First().Player.Name, result.TeamMatches.First().PlayerMatches.First().Player.Name);
+        }
+
+        [TestMethod]
+        public void TestPost_TeamMatch_PlayerMatch_Player_NameConstraint()
+        {
+            var request = TestHelper.GetStubMatch();
+            request.TeamMatches.ForEach(tm => tm.PlayerMatches.ForEach(pm => pm.Player.Name = "player"));
+            Service.Post(request);
+            var result = Service.Get(new Match()).Results.First();
+            Assert.AreEqual(request.TeamMatches.First().PlayerMatches.First().Player.Name, result.TeamMatches.First().PlayerMatches.First().Player.Name);
         }
     }
 }

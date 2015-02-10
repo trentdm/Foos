@@ -68,6 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\TestHelper.cs" />
+    <Compile Include="Services\PlayerServiceTests.cs" />
+    <Compile Include="Services\TeamServiceTests.cs" />
     <Compile Include="Services\MatchServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

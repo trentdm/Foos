@@ -49,3 +49,5 @@ src/Foos.sln.DotSettings.user
 *.user
 *.suo
 *.suo
+src/Foos.v12.suo
+*.suo
