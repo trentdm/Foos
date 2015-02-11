@@ -5,7 +5,7 @@
         $scope.alerts.push(alert);
         $timeout(function () {
             $scope.alerts.splice($scope.alerts.indexOf(alert), 1);
-        }, 3000);
+        }, 5000);
     });
 
     $scope.closeAlert = function (index) {
