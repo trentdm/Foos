@@ -12,6 +12,18 @@ namespace Foos.Api.Operations
         public int Id { get; set; }
         [Index(Unique = true)]
         public string Name { get; set; }
+        [Ignore]
+        public string Players { get; set; }
+        [Ignore]
+        public int Wins { get; set; }
+        [Ignore]
+        public int Losses { get; set; }
+        [Ignore]
+        public double WinAvg { get; set; }
+        [Ignore]
+        public int Points { get; set; }
+        [Ignore]
+        public double PointsAvg { get; set; }
     }
 
     [Route("/api/teammatch", "GET")]

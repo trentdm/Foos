@@ -5,18 +5,22 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Player 1</th>
-                <th>Player 2</th>
-                <th>Score</th>
-                <th>Winner</th>
+                <th>Players</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Avg</th>
+                <th>Points</th>
+                <th>Avg</th>
             </tr>
             <tr ng-repeat="team in teams">
                 <td>{{team.id}}</td>
                 <td>{{team.name}}</td>
-                <td>{{team.players[0].name}}</td>
-                <td>{{team.players[1].name}}</td>
-                <td>{{team.score}}</td>
-                <td><span class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-show="team.isWinner"></span></td>
+                <td>{{team.players}}</td>
+                <td>{{team.wins}}</td>
+                <td>{{team.losses}}</td>
+                <td>{{team.winAvg}}</td>
+                <td>{{team.points}}</td>
+                <td>{{team.pointsAvg}}</td>
             </tr>
         </tbody>
     </table>

@@ -5,16 +5,20 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Avg</th>
                 <th>Points</th>
-                <!--<th>Winner</th>-->
+                <th>Avg</th>
             </tr>
             <tr ng-repeat="player in players">
                 <td>{{player.id}}</td>
                 <td>{{player.name}}</td>
+                <td>{{player.wins}}</td>
+                <td>{{player.losses}}</td>
+                <td>{{player.winAvg}}</td>
                 <td>{{player.points}}</td>
-                <!--<td>
-                    <p><span class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-show="player.isWinner"></span></p>
-                </td>-->
+                <td>{{player.pointsAvg}}</td>
             </tr>
         </tbody>
     </table>

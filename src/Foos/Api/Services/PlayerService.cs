@@ -1,4 +1,6 @@
-﻿using Foos.Api.Operations;
+﻿using System;
+using System.Linq;
+using Foos.Api.Operations;
 using ServiceStack;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
@@ -20,6 +22,18 @@ namespace Foos.Api.Services
             {
                 var players = request.Id == 0 ? db.LoadSelect<Player>()
                     : db.LoadSelect<Player>(t => t.Id == request.Id);
+
+                foreach (var player in players)
+                {
+                    var playerMatches = db.LoadSelect<PlayerMatch>(pm => pm.PlayerId == player.Id);
+                    var teamMatches = playerMatches.SelectMany(pm => db.LoadSelect<TeamMatch>(tm => pm.TeamMatchId == tm.Id)).ToList();
+                    player.Wins = teamMatches.Count(tm => tm.IsWinner);
+                    player.Losses = teamMatches.Count(tm => !tm.IsWinner);
+                    player.WinAvg = Math.Round((double) player.Wins / teamMatches.Count, 3);
+                    player.Points = playerMatches.Sum(pm => pm.Points);
+                    player.PointsAvg = Math.Round((double) player.Points / teamMatches.Count, 3);
+                }
+
                 return new PlayerResponse { Total = players.Count, Results = players };
             }
         }

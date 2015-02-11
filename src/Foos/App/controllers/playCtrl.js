@@ -47,8 +47,6 @@
     };
 
     $scope.submitMatch = function(match) {
-        playService.submitMatch(match)
-            .success(submitSuccess)
-            .error(submitError);
+        playService.submitMatch(match, submitSuccess, submitError);
     };
 }]);

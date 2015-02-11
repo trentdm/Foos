@@ -23,8 +23,8 @@
                     <p ng-repeat="team in match.teams">{{team.players[0].name}}, {{team.players[1].name}}</p>
                 </td>
                 <td>
-                    <p><span class="glyphicon glyphicon-none" ng-repeat="team in match.teams" aria-hidden="true" ng-show="!team.isWinner"></span></p>
-                    <p><span class="glyphicon glyphicon-star-empty" ng-repeat="team in match.teams" aria-hidden="true" ng-show="team.isWinner"></span></p>
+                    <p ng-show="match.teams[1].isWinner"><span class="glyphicon glyphicon-none" aria-hidden="true"></span></p>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                 </td>
             </tr>
         </tbody>

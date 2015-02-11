@@ -17,9 +17,15 @@
         };
     };
 
-    this.submitMatch = function (match) {
+    this.submitMatch = function (match, successCallback, errorCallback) {
         var serverFormattedMatch = getServerFormattedMatch(match);
-        return $http.post('/api/match', serverFormattedMatch);
+        $http.post('/api/match', serverFormattedMatch)
+            .success(function(data, status, headers, config) {
+                successCallback(match, status);
+            })
+            .error(function(data, status, headers, config) {
+                errorCallback(data);
+            });
     };
 
     var getClientFormattedMatches = function (matches) {
@@ -40,7 +46,7 @@
                         })
                     };
                 })
-            }
+            };
         });
     };
 
@@ -55,12 +61,12 @@
     };
 
     this.getMatch = function (match, successCallback, errorCallback) {
-        return $http.get('/api/match/' + match.Id)
+        $http.get('/api/match/' + match.Id)
             .success(function(data, status, headers, config) {
                 successCallback(getClientFormattedMatches(data.results));
             })
             .error(function(data, status, headers, config) {
                 errorCallback(data, status);
-        });
+            });
     };
 }]);
