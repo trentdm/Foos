@@ -15,19 +15,16 @@ The server is built using ServiceStack. I am currently using ServiceStack.Ormlit
 ##Api and Logging##
 The restful api can be viewed at /metadata.
 
-Debugging logs can be viewed at /requestlogs. This will likely be disabled if Foos ever gets hosted publicly and/or taken seriously.
-
 ##Open Source##
 Foos is an open source project, licensed under the Apache License.
 
 ##ToDo##
-* track wins/losses of teams and players
-* incorporate position into ui and player data
+* incorporate player position into ui and player data
 * hyperlinks to different data sets across review pages
-* may break posting of team and player separate from match, so that match can post with just their ids instead of whole object
-* tie userAuth into return match data (stored in db, but make accessible by name via api)
-* consider adding local persistence for user, would use ss-id cookie for session id, but username is encrypted, so not sure how to restore that to the browser for viewing, and I dont want to maintain the auth state separately
-* fix for requiring rootscope to broadcast alerts (should be able to $scope.$emit and have parent headCtrl receive (but my implementation is not compatible with ui.router seeing it as a parent/child relationship I think)
-* investigate a bundler for scripts, app js, and css directories. Minimize overhead of extending or publishing app (MVC was good at this)
-* change metadata, auth, register, etc paths to /api/{service}
+* rethink match, team, and player apis - room for simplification if 10 api limit and orm functionality don't hinder
+* tie userAuth into return match data (stored in db already, but make accessible by name via api)
+* consider adding local persistence for user
+* fix for requiring rootscope to broadcast alerts (ie, $scope.$emit and $scope.on instead)
+* investigate a integrated bundler to minimize payloads (MVC was good at this)
+* change metadata, auth, register, etc., paths to /api/{service}
 * customize metadata page, https://github.com/ServiceStack/ServiceStack/wiki/Metadata-page

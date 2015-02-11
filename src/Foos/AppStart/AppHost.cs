@@ -18,12 +18,7 @@ namespace Foos.AppStart
 
         public override void Configure(Container container)
         {
-            SetConfig(new HostConfig
-                {
-                    HandlerFactoryPath = "api",
-                });
             SetJsonCamelCase();
-            EnableLogging();
             EnableAutomaticContentReload();
             EnablePersistence(container);
             EnableAuthentication(container);
