@@ -32,6 +32,7 @@
         return matches.map(function(match) {
             return {
                 id: match.id,
+                userAuthName: match.userAuthName,
                 dateTime: new Date(parseInt(match.dateTime.substr(6))).toLocaleString(),
                 teams: match.teamMatches.map(function(teamMatch) {
                     return {

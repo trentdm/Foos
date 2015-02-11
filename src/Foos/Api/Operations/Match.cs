@@ -16,6 +16,7 @@ namespace Foos.Api.Operations
         [Reference]
         public List<TeamMatch> TeamMatches { get; set; }
         public string UserAuthId { get; set; }
+        public string UserAuthName { get; set; }
     }
     
     public class MatchResponse : ResponseStatus

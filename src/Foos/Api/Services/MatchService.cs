@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using Foos.Api.Operations;
 using ServiceStack;
+using ServiceStack.Auth;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 
@@ -36,6 +37,7 @@ namespace Foos.Api.Services
 
                 foreach (var match in matches)
                 {
+                    match.UserAuthName = db.SingleById<UserAuth>(match.UserAuthId).UserName;
                     match.TeamMatches = db.LoadSelect<TeamMatch>(tm => tm.MatchId == match.Id);
 
                     foreach (var teamMatch in match.TeamMatches)

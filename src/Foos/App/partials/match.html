@@ -12,7 +12,10 @@
             </tr>
             <tr ng-repeat="match in matches">
                 <td>{{match.id}}</td>
-                <td>{{match.dateTime}}</td>
+                <td>
+                    <p>{{match.dateTime}}</p>
+                    <p>Submitted by user: {{match.userAuthName}}</p>
+                </td>
                 <td>
                     <p ng-repeat="team in match.teams">{{team.name}}</p>
                 </td>
