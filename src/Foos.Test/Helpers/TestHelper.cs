@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Foos.Api.Operations;
+using ServiceStack.Auth;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 

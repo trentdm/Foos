@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Foos.Api.Operations;
@@ -37,7 +36,9 @@ namespace Foos.Api.Services
 
                 foreach (var match in matches)
                 {
-                    match.UserAuthName = db.SingleById<UserAuth>(match.UserAuthId).UserName;
+                    if(!string.IsNullOrEmpty(UserSession.Id))
+                        match.UserAuthName =  db.SingleById<UserAuth>(match.UserAuthId).UserName;
+
                     match.TeamMatches = db.LoadSelect<TeamMatch>(tm => tm.MatchId == match.Id);
 
                     foreach (var teamMatch in match.TeamMatches)
