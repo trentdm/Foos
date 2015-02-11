@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using Foos.Api.Operations;
 using ServiceStack;
 using ServiceStack.Data;
@@ -34,11 +36,17 @@ namespace Foos.Api.Services
 
                 foreach (var match in matches)
                 {
-                    match.TeamMatches = db.LoadSelect<TeamMatch>();
+                    match.TeamMatches = db.LoadSelect<TeamMatch>(tm => tm.MatchId == match.Id);
 
                     foreach (var teamMatch in match.TeamMatches)
                     {
-                        teamMatch.PlayerMatches = db.LoadSelect<PlayerMatch>();
+                        teamMatch.Team = db.SingleById<Team>(teamMatch.TeamId);
+                        teamMatch.PlayerMatches = db.LoadSelect<PlayerMatch>(pm => pm.TeamMatchId == teamMatch.Id);
+
+                        foreach (var playerMatch in teamMatch.PlayerMatches)
+                        {
+                            playerMatch.Player = db.SingleById<Player>(playerMatch.PlayerId);
+                        }
                     }
                 }
 
@@ -57,13 +65,17 @@ namespace Foos.Api.Services
                 
                 foreach (var teamMatch in request.TeamMatches)
                 {
-                    db.Save(teamMatch, true);
+                    teamMatch.Team = TryGetExistingTeam(db, teamMatch);
                     db.Save(teamMatch.Team);
+                    teamMatch.TeamId = teamMatch.Team.Id;
+                    db.Save(teamMatch, true);
 
                     foreach (var playerMatch in teamMatch.PlayerMatches)
                     {
-                        db.Save(playerMatch, true);
+                        playerMatch.Player = TryGetExistingPlayer(db, playerMatch);
                         db.Save(playerMatch.Player);
+                        playerMatch.PlayerId = playerMatch.Player.Id;
+                        db.Save(playerMatch, true);
                     }
                 }
             }
@@ -71,23 +83,14 @@ namespace Foos.Api.Services
             return Get(request);
         }
 
-        public MatchResponse Put(Match request)
+        private Team TryGetExistingTeam(IDbConnection db, TeamMatch teamMatch)
         {
-            request.UserAuthId = UserSession.UserAuthId;
-            using (var db = DbConnectionFactory.OpenDbConnection())
-            {
-                var id = db.Update(request);
-                return Get(new Match { Id = id });
-            }
+            return db.Select<Team>(t => t.Name == teamMatch.Team.Name).FirstOrDefault() ?? teamMatch.Team;
         }
 
-        public MatchResponse Delete(Match request)
+        private Player TryGetExistingPlayer(IDbConnection db, PlayerMatch playerMatch)
         {
-            using (var db = DbConnectionFactory.OpenDbConnection())
-            {
-                db.Delete(request);
-                return new MatchResponse {Results = new List<Match> {request}};
-            }
+            return db.Select<Player>(p => p.Name == playerMatch.Player.Name).FirstOrDefault() ?? playerMatch.Player;
         }
     }
 }

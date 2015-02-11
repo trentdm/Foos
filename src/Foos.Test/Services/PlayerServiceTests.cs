@@ -34,7 +34,7 @@ namespace Foos.Test.Services
         }
 
         [TestMethod]
-        public void TestPlayerMatchGet_PlayerMatch()
+        public void TestPlayerMatchGet_Points()
         {
             var request = TestHelper.GetStubPlayerMatch();
             Service.Post(request);

@@ -22,6 +22,8 @@ namespace Foos.Api.Operations
         public int Id { get; set; }
         public int TeamMatchId { get; set; }
         [References(typeof(Player))]
+        public int PlayerId { get; set; }
+        [Ignore]
         public Player Player { get; set; }
         public int PositionId { get; set; }
         public int Points { get; set; }

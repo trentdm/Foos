@@ -58,13 +58,13 @@ namespace Foos.AppStart
 
             using (var db = container.Resolve<IDbConnectionFactory>().OpenDbConnection())
             {
-#if DEBUG
-                db.DropTable<Match>();
-                db.DropTable<Team>();
-                db.DropTable<TeamMatch>();
-                db.DropTable<Player>();
-                db.DropTable<PlayerMatch>();
-#endif
+//#if DEBUG
+//                db.DropTable<Match>();
+//                db.DropTable<Team>();
+//                db.DropTable<TeamMatch>();
+//                db.DropTable<Player>();
+//                db.DropTable<PlayerMatch>();
+//#endif
                 db.CreateTableIfNotExists<Match>();
                 db.CreateTableIfNotExists<Team>();
                 db.CreateTableIfNotExists<TeamMatch>();

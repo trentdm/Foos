@@ -1,51 +1,66 @@
 ﻿app.service('matchService', ['$http', function($http) {
-    var getServiceCompatibleMatch = function(match) {
+    var getServerFormattedMatch = function(match) {
         return {
-            teamMatches: [
-                {
-                    score: match.teams[0].score,
-                    isWinner: match.teams[0].isWinner,
-                    team: { name: match.teams[0].name },
-                    playerMatches: [
-                        {
-                            points: match.teams[0].players[0].points,
-                            player: { name: match.teams[0].players[0].name }
-                        },
-                        {
-                            points: match.teams[0].players[1].points,
-                            player: { name: match.teams[0].players[1].name }
-                        }
-                    ]
-                },
-                {
-                    score: match.teams[1].score,
-                    isWinner: match.teams[1].isWinner,
-                    team: { name: match.teams[1].name },
-                    playerMatches: [
-                        {
-                            points: match.teams[1].players[0].points,
-                            player: { name: match.teams[1].players[0].name }
-                        },
-                        {
-                            points: match.teams[1].players[1].points,
-                            player: { name: match.teams[1].players[1].name }
-                        }
-                    ]
-                }
-            ]
-        }
+            teamMatches: match.teams.map(function(team) {
+                return {
+                    score: team.score,
+                    isWinner: team.isWinner,
+                    team: { name: team.name },
+                    playerMatches: team.players.map(function(player) {
+                        return {
+                            points: player.points,
+                            player: { name: player.name }
+                        };
+                    })
+                };
+            })
+        };
     };
 
     this.submitMatch = function (match) {
-        var serviceCompatibleMatch = getServiceCompatibleMatch(match);
-        return $http.post('/api/match', serviceCompatibleMatch);
+        var serverFormattedMatch = getServerFormattedMatch(match);
+        return $http.post('/api/match', serverFormattedMatch);
     };
 
-    this.getMatches = function() {
-        return $http.get('/api/match');
+    var getClientFormattedMatches = function (matches) {
+        return matches.map(function(match) {
+            return {
+                id: match.id,
+                dateTime: new Date(parseInt(match.dateTime.substr(6))).toLocaleString(),
+                teams: match.teamMatches.map(function(teamMatch) {
+                    return {
+                        name: teamMatch.team.name,
+                        score: teamMatch.score,
+                        isWinner: teamMatch.isWinner,
+                        players: teamMatch.playerMatches.map(function(playerMatch) {
+                            return {
+                                name: playerMatch.player.name,
+                                points: playerMatch.points
+                            };
+                        })
+                    };
+                })
+            }
+        });
     };
 
-    this.getMatch = function(match) {
-        return $http.get('/api/match/' + match.Id);
+    this.getMatches = function (successCallback, errorCallback) {
+        $http.get('/api/match')
+            .success(function(data, status, headers, config) {
+                successCallback(getClientFormattedMatches(data.results));
+            })
+            .error(function(data, status, headers, config) {
+                errorCallback(data, status);
+            });
+    };
+
+    this.getMatch = function (match, successCallback, errorCallback) {
+        return $http.get('/api/match/' + match.Id)
+            .success(function(data, status, headers, config) {
+                successCallback(getClientFormattedMatches(data.results));
+            })
+            .error(function(data, status, headers, config) {
+                errorCallback(data, status);
+        });
     };
 }]);

@@ -52,6 +52,15 @@ namespace Foos.Test.Services
         }
 
         [TestMethod]
+        public void TestPost_TeamMatch_TeamId()
+        {
+            var request = TestHelper.GetStubMatch();
+            Service.Post(request);
+            var result = Service.Get(new Match()).Results.First();
+            Assert.AreEqual(result.TeamMatches.First().TeamId, result.TeamMatches.First().Team.Id);
+        }
+
+        [TestMethod]
         public void TestPost_TeamMatch_Team_NameConstraint()
         {
             var request = TestHelper.GetStubMatch();
@@ -68,6 +77,15 @@ namespace Foos.Test.Services
             Service.Post(request);
             var result = Service.Get(new Match()).Results.First();
             Assert.AreEqual(request.TeamMatches.First().PlayerMatches.First().Points, result.TeamMatches.First().PlayerMatches.First().Points);
+        }
+
+        [TestMethod]
+        public void TestPost_TeamMatch_PlayerMatch_PlayerId()
+        {
+            var request = TestHelper.GetStubMatch();
+            Service.Post(request);
+            var result = Service.Get(new Match()).Results.First();
+            Assert.AreEqual(request.TeamMatches.First().PlayerMatches.First().PlayerId, result.TeamMatches.First().PlayerMatches.First().Player.Id);
         }
 
         [TestMethod]
