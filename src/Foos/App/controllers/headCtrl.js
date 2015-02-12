@@ -1,11 +1,15 @@
-﻿app.controller('HeadCtrl', ['$scope', '$state', '$timeout', 'authModal', 'authService', function($scope, $state, $timeout, authModal, authService) {
+﻿app.controller('HeadCtrl', ['$scope', '$state', '$timeout', 'authModal', 'authService', 'versionService', function($scope, $state, $timeout, authModal, authService, versionService) {
     $scope.alerts = [];
-    
-    $scope.$on('alert', function (event, alert) {
+
+    $scope.addAlert = function(alert) {
         $scope.alerts.push(alert);
-        $timeout(function () {
+        $timeout(function() {
             $scope.alerts.splice($scope.alerts.indexOf(alert), 1);
-        }, 5000);
+        }, 8000);
+    };
+
+    $scope.$on('alert', function (event, alert) {
+        $scope.addAlert(alert);
     });
 
     $scope.closeAlert = function (index) {
@@ -25,4 +29,14 @@
     $scope.signout = function() {
         authService.signout();
     };
+
+    versionService.getVersionInfo(
+        function(version) {
+            if (version.isOutOfDate) {
+                $scope.addAlert({ type: 'warning', msg: 'Client version is out of date. Please refresh your browser.' });
+            }
+        },
+        function() {
+            $scope.addAlert({ type: 'danger', msg: 'Server could not be reached. Please try again later.' });
+        });
 }]);
