@@ -1,8 +1,7 @@
-﻿<div class="inner cover text-center">
+﻿<div class="inner cover text-center foosball-container">
     <h1 class="cover-heading">Foosball Scores and Bragging Central</h1>
     <p class="lead">Track your scores here and access the data for bragging rights later!</p>
     <p class="lead">
-    <div class="foosball-table"><img src="App/resources/table.gif"/></div>
         <div class="form-group row foosball-play">
             <div class="col-lg-6" ng-repeat="team in match.teams">
                 <div class="input-group foosball-team">
@@ -18,7 +17,7 @@
             </div>
         </div>
 
-    <p class="text-center">
-        <button class="btn btn-lg btn-primary foosball-submit" ng-disabled="!canSubmitMatch" ng-click="submitMatch(match)">Submit Match!</button>
+    <p class="text-center foosball-submit">
+        <button class="btn btn-lg btn-primary" ng-disabled="!canSubmitMatch" ng-click="submitMatch(match)">Submit Match!</button>
     </p>
 </div>

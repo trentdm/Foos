@@ -49,26 +49,19 @@
     border-right: 1px solid #e0e0e0;
 }
 
-.foosball-table {
-    position: relative;
-    overflow: hidden;
-    top: 10px;
-    margin-bottom: 10px;
-}
-
-.foosball-table img {
-    position: relative;
-    z-index: -1;
+.foosball-container {
+    background-image: url('/App/resources/table.gif');
+    background-repeat: no-repeat;
+    background-position: 0 100px;
+    min-height: 600px;
 }
 
 .foosball-play {
     position: relative;
     opacity: 0.8;
     filter: alpha(opacity=80);
-    top: -420px;
-    margin-bottom: -420px;
-    /*background-image: url('/App/resources/table.gif');
-    background-repeat: no-repeat;*/
+    margin-top: 70px;
+
 }
 
 .foosball-play .input-group {
@@ -81,8 +74,8 @@
 }
 
 .foosball-submit {
+    z-index: 1;
     margin-top: 50px;
-    margin-bottom: 310px;
 }
 
 .glyphicon-none:before {

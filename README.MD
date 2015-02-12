@@ -19,6 +19,7 @@ The restful api can be viewed at /metadata.
 Foos is an open source project, licensed under the Apache License.
 
 ##ToDo##
+* notification for when client is out of date
 * incorporate player position into ui and player data
 * hyperlinks to different data sets across review pages
 * rethink match, team, and player apis - room for simplification if 10 api limit and orm functionality don't hinder
