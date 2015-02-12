@@ -1,3 +1,16 @@
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
 .alert-container {
     position: fixed; 
     z-index: 3;
@@ -34,6 +47,42 @@
 .register {
     border: 0;
     border-right: 1px solid #e0e0e0;
+}
+
+.foosball-table {
+    position: relative;
+    overflow: hidden;
+    top: 10px;
+    margin-bottom: 10px;
+}
+
+.foosball-table img {
+    position: relative;
+    z-index: -1;
+}
+
+.foosball-play {
+    position: relative;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    top: -420px;
+    margin-bottom: -420px;
+    /*background-image: url('/App/resources/table.gif');
+    background-repeat: no-repeat;*/
+}
+
+.foosball-play .input-group {
+    width: 75%;
+}
+
+.foosball-team {
+     float: none; 
+     margin: 0 auto;
+}
+
+.foosball-submit {
+    margin-top: 50px;
+    margin-bottom: 310px;
 }
 
 .glyphicon-none:before {

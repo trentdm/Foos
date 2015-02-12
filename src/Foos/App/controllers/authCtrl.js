@@ -19,15 +19,11 @@
     };
     
     $scope.register = function (name, pass, email) {
-        authService.register(name, pass, email)
-            .success(authSuccess)
-            .error(authError);
+        authService.register(name, pass, email, authSuccess, authError);
     };
 
     $scope.signin = function(name, pass) {
-        authService.signin(name, pass)
-            .success(authSuccess)
-            .error(authError);
+        authService.signin(name, pass, authSuccess, authError);
     };
 
     $scope.cancel = $scope.$dismiss;

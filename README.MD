@@ -21,9 +21,7 @@ Foos is an open source project, licensed under the Apache License.
 ##ToDo##
 * incorporate player position into ui and player data
 * hyperlinks to different data sets across review pages
-* add pagination for review pages
 * rethink match, team, and player apis - room for simplification if 10 api limit and orm functionality don't hinder
-* consider adding local persistence for user
 * fix for requiring rootscope to broadcast alerts (ie, $scope.$emit and $scope.on instead)
 * investigate a integrated bundler to minimize payloads (MVC was good at this)
 * change metadata, auth, register, etc., paths to /api/{service}
