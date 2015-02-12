@@ -93,13 +93,20 @@ app.config(['$stateProvider', '$httpProvider',
     }
 ]);
 
-app.run(['$rootScope', '$state', 'authModal', 'authService',
-    function ($rootScope, $state, authModal, authService) {
-
+app.run(['$rootScope', '$state', 'authModal', 'authService', 'versionService',
+    function ($rootScope, $state, authModal, authService, versionService) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-            var requireLogin = toState.data.requireLogin;
+            versionService.getVersionInfo(
+                function (version) {
+                    if (version.isOutOfDate) {
+                        $rootScope.$broadcast('alert', { type: 'warning', msg: 'Client version is out of date. Please refresh your browser.' });
+                    }
+                },
+                function () {
+                    $scope.addAlert({ type: 'danger', msg: 'Server could not be reached. Please try again later.' });
+                });
 
-            if (requireLogin && !authService.user.isAuthenticated) {
+            if (toState.data.requireLogin && !authService.user.isAuthenticated) {
                 event.preventDefault();
 
                 authModal()

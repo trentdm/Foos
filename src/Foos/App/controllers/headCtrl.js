@@ -1,4 +1,4 @@
-﻿app.controller('HeadCtrl', ['$scope', '$state', '$timeout', 'authModal', 'authService', 'versionService', function($scope, $state, $timeout, authModal, authService, versionService) {
+﻿app.controller('HeadCtrl', ['$scope', '$state', '$timeout', 'authModal', 'authService', function($scope, $state, $timeout, authModal, authService) {
     $scope.alerts = [];
 
     $scope.addAlert = function(alert) {
@@ -29,14 +29,4 @@
     $scope.signout = function() {
         authService.signout();
     };
-
-    versionService.getVersionInfo(
-        function(version) {
-            if (version.isOutOfDate) {
-                $scope.addAlert({ type: 'warning', msg: 'Client version is out of date. Please refresh your browser.' });
-            }
-        },
-        function() {
-            $scope.addAlert({ type: 'danger', msg: 'Server could not be reached. Please try again later.' });
-        });
 }]);
