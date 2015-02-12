@@ -10,7 +10,7 @@
                 <th>Players</th>
                 <th>Winner</th>
             </tr>
-            <tr ng-repeat="match in matches">
+            <tr ng-repeat="match in pages.items">
                 <td>{{match.id}}</td>
                 <td>
                     <p>{{match.dateTime}}</p>
@@ -32,4 +32,5 @@
             </tr>
         </tbody>
     </table>
+    <pagination class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" ng-show="pages.doShow" total-items="pages.totalItems" items-per-page="pages.itemsPerPage" ng-model="pages.currentPage" max-size="pages.menuSize" boundary-links="true"></pagination>
 </div>

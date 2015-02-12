@@ -1,6 +1,7 @@
-﻿app.controller('MatchCtrl', ['$rootScope', '$scope', 'matchService', function($rootScope, $scope, matchService) {
-    var successCallback = function(matches) {
+﻿app.controller('MatchCtrl', ['$rootScope', '$scope', 'matchService', 'pageService', function($rootScope, $scope, matchService, pageService) {
+    var successCallback = function (matches) {
         $scope.matches = matches;
+        $scope.pages = pageService.getPages($scope, matches, 5);
     };
 
     var errorCallback = function(data) {

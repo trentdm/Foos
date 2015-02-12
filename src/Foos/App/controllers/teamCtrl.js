@@ -1,6 +1,7 @@
-﻿app.controller('TeamCtrl', ['$rootScope', '$scope', 'teamService', function($rootScope, $scope, teamService) {
+﻿app.controller('TeamCtrl', ['$rootScope', '$scope', 'teamService', 'pageService', function ($rootScope, $scope, teamService, pageService) {
     var successCallback = function (teams) {
         $scope.teams = teams.results;
+        $scope.pages = pageService.getPages($scope, teams.results, 10);
     };
 
     var errorCallback = function (data) {

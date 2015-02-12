@@ -5,11 +5,11 @@
     <div class="form-group row">
         <div class="col-lg-6" ng-repeat="team in match.teams">
             <div class="input-group">
-                <input type="text" class="form-control" ng-model="team.name" placeholder="Team {{$index + 1}}" typeahead="name for name in teamNames | filter:$viewValue | limitTo:5" />
+                <input type="text" class="form-control" ng-model="selected" placeholder="Team {{$index + 1}}" typeahead="name for name in teamNames | filter:$viewValue" />
                 <span class="input-group-addon">{{team.score}}</span>
             </div>
             <div class="input-group" ng-repeat="player in team.players">
-                <input type="text" class="form-control" ng-model="player.name" placeholder="Player {{$index + 1}}" typeahead="name for name in playerNames | filter:player.name | limitTo:5" />
+                <input type="text" class="form-control" ng-model="player.name" placeholder="Player {{$index + 1}}" typeahead="name for name in playerNames | filter:player.name" />
                 <span class="input-group-addon cursor-pointer" ng-click="subtractPoint(team, player)">-</span>
                 <span class="input-group-addon">{{player.points}}</span>
                 <span class="input-group-addon cursor-pointer" ng-click="addPoint(team, player)">+</span>

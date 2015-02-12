@@ -11,7 +11,7 @@
                 <th>Points</th>
                 <th>Avg</th>
             </tr>
-            <tr ng-repeat="player in players">
+            <tr ng-repeat="player in pages.items">
                 <td>{{player.id}}</td>
                 <td>{{player.name}}</td>
                 <td>{{player.wins}}</td>
@@ -22,4 +22,5 @@
             </tr>
         </tbody>
     </table>
+    <pagination class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" ng-show="pages.doShow" total-items="pages.totalItems" items-per-page="pages.itemsPerPage" ng-model="pages.currentPage" max-size="pages.menuSize" boundary-links="true"></pagination>
 </div>
