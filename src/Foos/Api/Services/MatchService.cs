@@ -53,7 +53,7 @@ namespace Foos.Api.Services
                     }
                 }
 
-                return new MatchResponse { Total = matches.Count, Results = matches };
+                return new MatchResponse { Total = matches.Count, Results = matches.OrderByDescending(m => m.DateTime).ToList() };
             }
         }
 
