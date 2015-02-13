@@ -17,6 +17,8 @@ namespace Foos.Api.Operations
         [Ignore]
         public int Losses { get; set; }
         [Ignore]
+        public int Games { get; set; }
+        [Ignore]
         public double WinAvg { get; set; }
         [Ignore]
         public int Points { get; set; }
