@@ -5,7 +5,7 @@
         <div class="form-group row foosball-play">
             <div class="col-lg-6" ng-repeat="team in match.teams">
                 <div class="input-group foosball-team">
-                    <input type="text" class="form-control" ng-model="team.name" placeholder="Team {{$index + 1}}" typeahead="name for name in teamNames | filter:$viewValue" />
+                    <label class="form-control">{{team.players[0].name + '/' + team.players[1].name}}</label>
                     <span class="input-group-addon">{{team.score}}</span>
                 </div>
                 <div class="input-group foosball-team" ng-repeat="player in team.players">

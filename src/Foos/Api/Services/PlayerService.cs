@@ -33,8 +33,8 @@ namespace Foos.Api.Services
                     player.Points = playerMatches.Sum(pm => pm.Points);
                     player.PointsAvg = Math.Round((double) player.Points / teamMatches.Count, 3);
                 }
-
-                return new PlayerResponse { Total = players.Count, Results = players };
+                var orderedPlayers = players.OrderByDescending(p => p.Wins > 1).ThenByDescending(p => p.WinAvg).ToList();
+                return new PlayerResponse { Total = players.Count, Results = orderedPlayers };
             }
         }
 

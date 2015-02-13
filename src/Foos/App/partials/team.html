@@ -15,7 +15,7 @@
             <tr ng-repeat="team in pages.items">
                 <td>{{team.id}}</td>
                 <td>{{team.name}}</td>
-                <td>{{team.players}}</td>
+                <td><p ng-repeat="player in team.players">{{player.name}}</p></td>
                 <td>{{team.wins}}</td>
                 <td>{{team.losses}}</td>
                 <td>{{team.winAvg}}</td>

@@ -13,7 +13,7 @@ namespace Foos.Api.Operations
         [Index(Unique = true)]
         public string Name { get; set; }
         [Ignore]
-        public string Players { get; set; }
+        public List<Player> Players { get; set; }
         [Ignore]
         public int Wins { get; set; }
         [Ignore]

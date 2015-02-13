@@ -1,6 +1,5 @@
 ﻿app.controller('PlayCtrl', ['$rootScope', '$scope', 'playService', function($rootScope, $scope, playService) {
     $scope.match = playService.getFreshMatch();
-    playService.getTeamNames(function (data) { $scope.teamNames = data; });
     playService.getPlayerNames(function(data) { $scope.playerNames = data; });
     $scope.canSubmitMatch = false;
 
