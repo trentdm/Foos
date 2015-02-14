@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Foos.Api.Operations;
@@ -43,18 +44,25 @@ namespace Foos.Api.Services
 
                     foreach (var teamMatch in match.TeamMatches)
                     {
-                        teamMatch.Team = db.SingleById<Team>(teamMatch.TeamId);
                         teamMatch.PlayerMatches = db.LoadSelect<PlayerMatch>(pm => pm.TeamMatchId == teamMatch.Id);
 
                         foreach (var playerMatch in teamMatch.PlayerMatches)
                         {
                             playerMatch.Player = db.SingleById<Player>(playerMatch.PlayerId);
                         }
+
+                        teamMatch.Team = db.SingleById<Team>(teamMatch.TeamId);
+                        teamMatch.Team.Name = string.Join("/", GetTeamNames(teamMatch));
                     }
                 }
 
                 return new MatchResponse { Total = matches.Count, Results = matches.OrderByDescending(m => m.DateTime).ToList() };
             }
+        }
+
+        private IEnumerable<string> GetTeamNames(TeamMatch teamMatch)
+        {
+            return teamMatch.PlayerMatches.Select(pm => pm.Player).OrderBy(p => p.Id).Select(p => p.Name);
         }
 
         public MatchResponse Post(Match request)

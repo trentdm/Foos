@@ -5,9 +5,8 @@
             <tr>
                 <th>#</th>
                 <th>Date</th>
-                <th>Teams</th>
-                <th>Scores</th>
                 <th>Players</th>
+                <th>Scores</th>
                 <th>Winner</th>
             </tr>
             <tr ng-repeat="match in pages.items">
@@ -17,13 +16,10 @@
                     <p>Submitted by user: {{match.userAuthName}}</p>
                 </td>
                 <td>
-                    <p ng-repeat="team in match.teams">{{team.name}}</p>
+                    <p ng-repeat="team in match.teams">{{team.players[0].name}}, {{team.players[1].name}}</p>
                 </td>
                 <td>
                     <p ng-repeat="team in match.teams">{{team.score}}</p>
-                </td>
-                <td>
-                    <p ng-repeat="team in match.teams">{{team.players[0].name}}, {{team.players[1].name}}</p>
                 </td>
                 <td>
                     <p ng-show="match.teams[1].isWinner"><span class="glyphicon glyphicon-none" aria-hidden="true"></span></p>
