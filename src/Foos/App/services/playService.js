@@ -1,4 +1,4 @@
-﻿app.service('playService', ['matchService', 'teamService', 'playerService', function(matchService, teamService, playerService) {
+﻿app.service('playService', ['matchService', 'teamService', 'playerService', 'positionService', function(matchService, teamService, playerService, positionService) {
     this.getFreshMatch = function() {
         return {
             teams: [
@@ -6,16 +6,16 @@
                     name: "",
                     score: 0,
                     players: [
-                        { name: "", points: 0 },
-                        { name: "", points: 0 }
+                        { name: "", points: 0, position: { id: 0 } },
+                        { name: "", points: 0, position: { id: 1 } }
                     ]
                 },
                 {
                     name: "",
                     score: 0,
                     players: [
-                        { name: "", points: 0 },
-                        { name: "", points: 0 }
+                        { name: "", points: 0, position: { id: 0 } },
+                        { name: "", points: 0, position: { id: 1 } }
                     ]
                 }
             ]
@@ -43,4 +43,10 @@
             successCallBack(data);
         });
     };
+
+    this.getPositions = function(successCallback) {
+        positionService.getPositions(function(response, status, headers, config) {
+            successCallback(response.results, status, headers, config);
+        });
+    }
 }]);

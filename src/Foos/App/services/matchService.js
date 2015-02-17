@@ -1,5 +1,13 @@
 ﻿app.service('matchService', ['$http', function($http) {
-    var getServerFormattedMatch = function(match) {
+    var getServerFormattedMatch = function (match) {
+        match.teams.forEach(function(team) {
+            team.players.forEach(function(player) {
+                if (!player.name) {
+                    team.players.splice(team.players.indexOf(player));
+                }
+            });
+        });
+
         return {
             teamMatches: match.teams.map(function(team) {
                 return {
@@ -9,7 +17,8 @@
                     playerMatches: team.players.map(function(player) {
                         return {
                             points: player.points,
-                            player: { name: player.name }
+                            player: { name: player.name },
+                            positionId: player.position.id
                         };
                     })
                 };
@@ -42,7 +51,8 @@
                         players: teamMatch.playerMatches.map(function(playerMatch) {
                             return {
                                 name: playerMatch.player.name,
-                                points: playerMatch.points
+                                points: playerMatch.points,
+                                position: { id: playerMatch.positionId }
                             };
                         })
                     };

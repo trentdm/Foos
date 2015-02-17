@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ServiceStack;
 using ServiceStack.DataAnnotations;
+using ServiceStack.FluentValidation;
 
 namespace Foos.Api.Operations
 {
@@ -39,6 +40,18 @@ namespace Foos.Api.Operations
         public Player Player { get; set; }
         public int PositionId { get; set; }
         public int Points { get; set; }
+    }
+
+    public class PlayerValidator : AbstractValidator<Player>
+    {
+        public PlayerValidator()
+        {
+
+            RuleSet(ApplyTo.Post | ApplyTo.Put, () =>
+            {
+                RuleFor(r => r.Name).Must(string.IsNullOrWhiteSpace);
+            });
+        }
     }
 
     public class PlayerResponse : ResponseStatus

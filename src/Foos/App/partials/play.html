@@ -8,11 +8,17 @@
                     <label class="form-control">{{team.players[0].name + '/' + team.players[1].name}}</label>
                     <span class="input-group-addon">{{team.score}}</span>
                 </div>
-                <div class="input-group foosball-team" ng-repeat="player in team.players">
-                    <input type="text" class="form-control" ng-model="player.name" placeholder="Player {{$index + 1}}" typeahead="name for name in playerNames | filter:player.name" />
-                    <span class="input-group-addon cursor-pointer" ng-click="subtractPoint(team, player)">-</span>
-                    <span class="input-group-addon">{{player.points}}</span>
-                    <span class="input-group-addon cursor-pointer" ng-click="addPoint(team, player)">+</span>
+                <div class="foosball-team" ng-repeat="player in team.players">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="player.name" placeholder="Player {{$index + 1}}" typeahead="name for name in playerNames | filter:player.name" />
+                        <span class="input-group-addon btn btn-sm btn-danger" ng-click="subtractPoint(team, player)">-</span>
+                        <span class="input-group-addon">{{player.points}}</span>
+                        <span class="input-group-addon  btn btn-sm btn-primary" ng-click="addPoint(team, player)">+</span>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></div>
+                        <select class="form-control" ng-model="player.position" ng-options="position.name for position in positions track by position.id"></select>
+                    </div>
                 </div>
             </div>
         </div>

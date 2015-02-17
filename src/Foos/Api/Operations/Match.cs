@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ServiceStack;
 using ServiceStack.DataAnnotations;
+using ServiceStack.FluentValidation;
 
 namespace Foos.Api.Operations
 {
@@ -18,6 +19,21 @@ namespace Foos.Api.Operations
         public string UserAuthId { get; set; }
         [Ignore]
         public string UserAuthName { get; set; }
+    }
+
+    public class MatchValidator : AbstractValidator<Match>
+    {
+        public TeamValidator TeamValidator { get; set; }
+
+        public MatchValidator()
+        {
+            RuleSet(ApplyTo.Post | ApplyTo.Put, () =>
+            {
+                RuleFor(r => r.TeamMatches).Must(tm => tm.Count == 2);
+                RuleFor(r => r.TeamMatches).Must(tm => tm.TrueForAll(t => t.PlayerMatches.Count > 0));
+                RuleFor(r => r.TeamMatches).Must(tm => tm.TrueForAll(t => t.PlayerMatches.TrueForAll(p => !string.IsNullOrWhiteSpace(p.Player.Name))));
+            });
+        }
     }
     
     public class MatchResponse : ResponseStatus

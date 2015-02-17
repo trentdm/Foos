@@ -9,6 +9,7 @@ using ServiceStack.Caching;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 using ServiceStack.Text;
+using ServiceStack.Validation;
 
 namespace Foos.AppStart
 {
@@ -18,10 +19,17 @@ namespace Foos.AppStart
 
         public override void Configure(Container container)
         {
+            EnableValidation(container);
             SetJsonCamelCase();
             EnableAutomaticContentReload();
             EnablePersistence(container);
             EnableAuthentication(container);
+        }
+
+        private void EnableValidation(Container container)
+        {
+            container.RegisterValidators(typeof(MatchService).Assembly);
+            Plugins.Add(new ValidationFeature());
         }
 
         private static void SetJsonCamelCase()
@@ -71,10 +79,9 @@ namespace Foos.AppStart
                     db.CreateTable<Position>();
                     db.InsertAll(new List<Position>
                     {
-                        new Position {Id = 0, Name = "Unspecified"}, 
-                        new Position {Id = 1, Name = "Front"}, 
-                        new Position {Id = 2, Name = "Back"}, 
-                        new Position {Id = 3, Name = "Solo"}
+                        new Position {Id = 0, Name = "Front"}, 
+                        new Position {Id = 1, Name = "Back"}, 
+                        new Position {Id = 2, Name = "Single"}
                     });
                 }
             }

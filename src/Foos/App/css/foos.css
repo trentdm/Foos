@@ -60,23 +60,27 @@
     position: relative;
     opacity: 0.8;
     filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
     margin-top: 70px;
-
-}
-
-.foosball-play .input-group {
-    width: 75%;
 }
 
 .foosball-team {
-     float: none; 
-     margin: 0 auto;
+    width: 80%;
+    float: none;
+    margin: 0 auto;
 }
 
 .foosball-submit {
     z-index: 1;
     margin-top: 50px;
 }
+
+/*form select,
+form select option {
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    opacity: 0.8;
+}*/
 
 .glyphicon-none:before {
     content: "\2122";

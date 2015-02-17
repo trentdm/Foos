@@ -1,7 +1,12 @@
 ﻿app.controller('PlayCtrl', ['$scope', 'playService', function($scope, playService) {
     $scope.match = playService.getFreshMatch();
-    playService.getPlayerNames(function(data) { $scope.playerNames = data; });
     $scope.canSubmitMatch = false;
+    playService.getPlayerNames(function(data) {
+         $scope.playerNames = data;
+    });
+    playService.getPositions(function(data) {
+         $scope.positions = data;
+    });
 
     $scope.addPoint = function(team, player) {
         if (team.score < 8 && player.points < 8) {

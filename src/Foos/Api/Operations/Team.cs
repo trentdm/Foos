@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ServiceStack;
 using ServiceStack.DataAnnotations;
+using ServiceStack.FluentValidation;
 
 namespace Foos.Api.Operations
 {
@@ -45,6 +46,18 @@ namespace Foos.Api.Operations
         public List<PlayerMatch> PlayerMatches { get; set; } 
     }
 
+
+    public class TeamValidator : AbstractValidator<Team>
+    {
+        public TeamValidator()
+        {
+            RuleSet(ApplyTo.Post | ApplyTo.Put, () =>
+            {
+                RuleFor(r => r.Players).Must(p => p.Count > 0); 
+                
+            });
+        }
+    }
     public class TeamResponse : ResponseStatus
     {
         public int Total { get; set; }

@@ -32,7 +32,7 @@ namespace Foos.Test.Helpers
                 if (!db.TableExists<Position>())
                 {
                     db.CreateTable<Position>();
-                    db.InsertAll(new List<Position> { new Position { Id = 0, Name = "Unspecified" }, new Position { Id = 1, Name = "Front" }, new Position { Id = 2, Name = "Back" }, new Position { Id = 3, Name = "Solo" } });
+                    db.InsertAll(new List<Position> { new Position { Id = 0, Name = "Front" }, new Position { Id = 1, Name = "Back" }, new Position { Id = 2, Name = "Single" } });
                 }
             }
         }
