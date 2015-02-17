@@ -11,7 +11,7 @@
             { 'name': 'Points', 'field': 'points' },
             { 'name': 'Avg', 'field': 'pointsAvg' }
         ];
-        $scope.sort = pageService.getSort(headerMap, 'name');
+        $scope.sort = pageService.getSort(headerMap, undefined);
     };
 
     var errorCallback = function (data) {

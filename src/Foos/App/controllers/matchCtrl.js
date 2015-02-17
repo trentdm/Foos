@@ -6,7 +6,7 @@
             { 'name': '#', 'field': 'id' },
             { 'name': 'Date', 'field': 'dateTime' }
         ];
-        $scope.sort = pageService.getSort(headerMap, 'name');
+        $scope.sort = pageService.getSort(headerMap, undefined);
     };
 
     var errorCallback = function(data) {

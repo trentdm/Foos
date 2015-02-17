@@ -54,7 +54,7 @@ namespace Foos.Api.Services
                     teams.Add(team);
                 }
 
-                var orderedTeams = teams.OrderByDescending(t => t.Wins > 1).ThenByDescending(t => t.WinAvg).ToList();
+                var orderedTeams = teams.OrderByDescending(t => t.Wins > 1).ThenByDescending(t => t.WinAvg).ThenByDescending(t => t.Wins).ToList();
                 return new TeamResponse {Total = teams.Count, Results = orderedTeams};
             }
         }
