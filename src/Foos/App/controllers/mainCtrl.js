@@ -1,4 +1,4 @@
-﻿app.controller('HeadCtrl', ['$scope', '$state', '$timeout', 'authModal', 'authService', function($scope, $state, $timeout, authModal, authService) {
+﻿app.controller('MainCtrl', ['$scope', '$state', '$timeout', 'authModal', 'authService', function($scope, $state, $timeout, authModal, authService) {
     $scope.alerts = [];
 
     $scope.addAlert = function(alert) {
