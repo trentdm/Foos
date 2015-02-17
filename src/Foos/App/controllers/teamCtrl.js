@@ -1,4 +1,4 @@
-﻿app.controller('TeamCtrl', ['$rootScope', '$scope', 'teamService', 'pageService', function ($rootScope, $scope, teamService, pageService) {
+﻿app.controller('TeamCtrl', ['$scope', 'teamService', 'pageService', function ($scope, teamService, pageService) {
     var successCallback = function (teams) {
         $scope.teams = teams.results;
         $scope.pages = pageService.getPages($scope, teams.results, 10);
@@ -15,7 +15,10 @@
     };
 
     var errorCallback = function (data) {
-        $rootScope.$broadcast('alert', { type: 'danger', msg: data.responseStatus.message });
+        if (data.responseMessage)
+            $scope.$emit('alert', { type: 'danger', msg: data.responseStatus.message })
+        else
+            $scope.$emit('alert', { type: 'warning', msg: 'Server error, please try again later.' });
     };
 
     teamService.getTeams(successCallback, errorCallback);

@@ -1,4 +1,4 @@
-﻿app.controller('PlayerCtrl', ['$rootScope', '$scope', 'playerService', 'pageService', function($rootScope, $scope, playerService, pageService) {
+﻿app.controller('PlayerCtrl', ['$scope', 'playerService', 'pageService', function($scope, playerService, pageService) {
     var successCallback = function (players) {
         $scope.players = players.results;
         $scope.pages = pageService.getPages($scope, players.results, 10);
@@ -15,7 +15,10 @@
     };
 
     var errorCallback = function (data) {
-        $rootScope.$broadcast('alert', { type: 'danger', msg: data.responseStatus.message });
+        if (data.responseMessage)
+            $scope.$emit('alert', { type: 'danger', msg: data.responseStatus.message });
+        else
+            $scope.$emit('alert', { type: 'warning', msg: 'Server error, please try again later.' });
     };
 
     playerService.getPlayers(successCallback, errorCallback);

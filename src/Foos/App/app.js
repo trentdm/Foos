@@ -103,7 +103,7 @@ app.run(['$rootScope', '$state', 'authModal', 'authService', 'versionService',
                     }
                 },
                 function () {
-                    $scope.addAlert({ type: 'danger', msg: 'Server could not be reached. Please try again later.' });
+                    $rootScope.$broadcast({ type: 'danger', msg: 'Server could not be reached. Please try again later.' });
                 });
 
             if (toState.data.requireLogin && !authService.user.isAuthenticated) {

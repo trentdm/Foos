@@ -22,7 +22,6 @@ Foos is an open source project, licensed under the Apache License.
 * Incorporate player position into ui and player data
 * Hyperlinks to different data sets across review pages
 * Rethink match, team, and player apis - room for simplification if 10 api limit and orm functionality don't hinder
-* Fix for requiring rootscope to broadcast alerts (ie, $scope.$emit and $scope.on instead)
 * Investigate a integrated bundler to minimize payloads (MVC was good at this)
 * Change metadata, auth, register, etc., paths to /api/{service}
 * Customize metadata page, https://github.com/ServiceStack/ServiceStack/wiki/Metadata-page

@@ -1,4 +1,4 @@
-﻿app.controller('PlayCtrl', ['$rootScope', '$scope', 'playService', function($rootScope, $scope, playService) {
+﻿app.controller('PlayCtrl', ['$scope', 'playService', function($scope, playService) {
     $scope.match = playService.getFreshMatch();
     playService.getPlayerNames(function(data) { $scope.playerNames = data; });
     $scope.canSubmitMatch = false;
@@ -35,14 +35,17 @@
         if (status == 200) {
             $scope.match = playService.getFreshMatch();
             updateMatch();
-            $rootScope.$broadcast('alert', { type: 'success', msg: 'Match submitted, thanks!'});
+            $scope.$emit('alert', { type: 'success', msg: 'Match submitted, thanks!' });
         } else {
             submitError(data, status, headers, config);
         }
     };
 
     var submitError = function (data, status, headers, config) {
-        $rootScope.$broadcast('alert', { type: 'warning', msg: 'Submission error. ' + data.responseStatus.message });
+        if(data.responseMessage)
+            $scope.$emit('alert', { type: 'warning', msg: 'Submission error. ' + data.responseStatus.message });
+        else
+            $scope.$emit('alert', { type: 'warning', msg: 'Server error, please try again later.' });
     };
 
     $scope.submitMatch = function(match) {
