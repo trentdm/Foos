@@ -2,6 +2,16 @@
     var successCallback = function (teams) {
         $scope.teams = teams.results;
         $scope.pages = pageService.getPages($scope, teams.results, 10);
+        var headerMap = [
+            { 'name': 'Players', 'field': 'name' },
+            { 'name': 'Wins', 'field': 'wins' },
+            { 'name': 'Losses', 'field': 'losses' },
+            { 'name': 'Games', 'field': 'games' },
+            { 'name': 'Avg', 'field': 'winAvg' },
+            { 'name': 'Points', 'field': 'points' },
+            { 'name': 'Avg', 'field': 'pointsAvg' }
+        ];
+        $scope.sort = pageService.getSort(headerMap, 'name');
     };
 
     var errorCallback = function (data) {

@@ -3,13 +3,20 @@
     <table class="table table-striped table-hover">
         <tbody>
             <tr>
-                <th>#</th>
-                <th>Date</th>
+                <th ng-repeat="header in sort.headerMap">
+                    <a href ng-click="sort.updateReverseSort(header.field); sort.orderBy=header.field;">
+                        {{header.name}}
+                        <small style="position:absolute;">
+                            <span ng-show="sort.orderBy == header.field && !sort.reverseSort">^</span>
+                            <span ng-show="sort.orderBy == header.field && sort.reverseSort">v</span>
+                        </small>
+                    </a>
+                </th>
                 <th>Players</th>
-                <th>Scores</th>
+                <th>Score</th>
                 <th>Winner</th>
             </tr>
-            <tr ng-repeat="match in pages.items">
+            <tr ng-repeat="match in pages.items|orderBy:sort.orderBy:sort.reverseSort">
                 <td>{{match.id}}</td>
                 <td>
                     <p>{{match.dateTime}}</p>
