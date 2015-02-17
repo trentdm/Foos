@@ -2,7 +2,7 @@
     this.getVersionInfo = function(successCallback, errorCallback) {
         $http.get('/api/version')
             .success(function (data, status, headers, config) {
-                var localVersion = 1.042;
+                var localVersion = 1.043;
                 this.version = {
                     local: localVersion,
                     server: data.result.fullVersion,
