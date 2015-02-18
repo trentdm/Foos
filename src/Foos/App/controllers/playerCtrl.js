@@ -1,7 +1,7 @@
 ﻿app.controller('PlayerCtrl', ['$scope', 'playerService', 'pageService', function($scope, playerService, pageService) {
     var successCallback = function (players) {
         $scope.players = players.results;
-        $scope.pages = pageService.getPages($scope, players.results, 10);
+        $scope.pages = pageService.getPages($scope, players.results, $scope.user.preferences.playersPerPage);
         var headerMap = [
             { 'name': 'Name', 'field': 'name' },
             { 'name': 'Wins', 'field': 'wins' },

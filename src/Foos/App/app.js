@@ -56,6 +56,14 @@ app.config(['$stateProvider', '$httpProvider',
                 requireLogin: false
             }
         });
+        $stateProvider.state('preferences', {
+            url: '/preferences',
+            templateUrl: 'App/partials/preferences.html',
+            controller: 'PreferencesCtrl',
+            data: {
+                requireLogin: true
+            }
+        });
 
         $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
             var authModal, $http, $state;

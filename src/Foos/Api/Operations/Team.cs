@@ -58,6 +58,7 @@ namespace Foos.Api.Operations
             });
         }
     }
+
     public class TeamResponse : ResponseStatus
     {
         public int Total { get; set; }

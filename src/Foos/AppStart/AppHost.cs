@@ -71,12 +71,14 @@ namespace Foos.AppStart
 //                db.DropTable<TeamMatch>();
 //                db.DropTable<Player>();
 //                db.DropTable<PlayerMatch>();
+//                db.DropTable<UserPreferences>();
 //#endif
                 db.CreateTableIfNotExists<Match>();
                 db.CreateTableIfNotExists<Team>();
                 db.CreateTableIfNotExists<TeamMatch>();
                 db.CreateTableIfNotExists<Player>();
                 db.CreateTableIfNotExists<PlayerMatch>();
+                db.CreateTableIfNotExists<Preferences>();
 
                 if (!db.TableExists<Position>())
                 {

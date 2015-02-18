@@ -1,7 +1,7 @@
 ﻿app.controller('TeamCtrl', ['$scope', 'teamService', 'pageService', function ($scope, teamService, pageService) {
     var successCallback = function (teams) {
         $scope.teams = teams.results;
-        $scope.pages = pageService.getPages($scope, teams.results, 10);
+        $scope.pages = pageService.getPages($scope, teams.results, $scope.user.preferences.teamsPerPage);
         var headerMap = [
             { 'name': 'Players', 'field': 'name' },
             { 'name': 'Wins', 'field': 'wins' },

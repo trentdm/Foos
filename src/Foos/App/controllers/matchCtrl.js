@@ -1,7 +1,7 @@
 ﻿app.controller('MatchCtrl', ['$scope', 'matchService', 'pageService', function($scope, matchService, pageService) {
     var successCallback = function (matches) {
         $scope.matches = matches;
-        $scope.pages = pageService.getPages($scope, matches, 5);
+        $scope.pages = pageService.getPages($scope, matches, $scope.user.preferences.matchesPerPage);
         var headerMap = [
             { 'name': '#', 'field': 'id' },
             { 'name': 'Date', 'field': 'dateTime' }

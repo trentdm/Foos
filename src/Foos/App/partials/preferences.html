@@ -1,0 +1,20 @@
+﻿<div class="inner cover">
+    <h2>Preferences for {{user.preferences.userName}} </h2>
+    <form>
+        <div class="form-group">
+            <label>Matches Shown Per Page</label>
+            <input type="number" ng-model="user.preferences.matchesPerPage" />
+        </div>
+        <div class="form-group">
+            <label>Teams Shown Per Page</label>
+            <input type="number" ng-model="user.preferences.teamsPerPage" />
+        </div>
+        <div class="form-group">
+            <label>Players Shown Per Page</label>
+            <input type="number" ng-model="user.preferences.playersPerPage" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" ng-click="update(user.preferences)">Update Preferences</button>
+        </div>
+    </form>
+</div>

@@ -19,10 +19,11 @@ The restful api can be viewed at /metadata.
 Foos is an open source project, licensed under the Apache License.
 
 ##ToDo##
-* Incorporate player position into ui and player data
 * Hyperlinks to different data sets across review pages
+* Improve synchronization of auth state between server and client (https://github.com/ServiceStack/ServiceStack/wiki/Authentication-and-authorization)
+* Signout needs to remove serverside session
 * Rethink match, team, and player apis - room for simplification if 10 api limit and orm functionality don't hinder
-* Investigate a integrated bundler to minimize payloads (MVC was good at this)
+* Investigate a integrated bundler to minimize payloads (MVC was good at this, or https://github.com/ServiceStack/Bundler if sticking with SS)
 * Change metadata, auth, register, etc., paths to /api/{service}
 * Customize metadata page, https://github.com/ServiceStack/ServiceStack/wiki/Metadata-page
 * Use modernizr to detect if a client's browser may be unsupported (and notify with alert)

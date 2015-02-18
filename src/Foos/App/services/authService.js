@@ -3,7 +3,16 @@
     if (cookie) {
         this.user = cookie;
     } else {
-        this.user = { name: undefined, isAuthenticated: false };
+        this.user = {
+            name: undefined,
+            id: undefined,
+            isAuthenticated: false,
+            preferences: {
+                matchesPerPage: 5,
+                teamsPerPage: 10,
+                playersPerPage: 10
+            }
+        };
     }
 
     this.register = function(name, pass, email, successCallback, errorCallback) {
@@ -15,7 +24,11 @@
             rememberMe: true
         })
         .success(function(data, status, headers, config) {
-                $cookieStore.put('user', { name: name, isAuthenticated: true });
+            $cookieStore.put('user', {
+                name: data.displayName,
+                id: data.userId,
+                isAuthenticated: true
+            });
                 successCallback(data, status, headers, config);
             })
         .error(function(data, status, headers, config) {
@@ -30,7 +43,11 @@
             rememberMe: true
         })
         .success(function(data, status, headers, config) {
-            $cookieStore.put('user', { name: name, isAuthenticated: true });
+            $cookieStore.put('user', {
+                name: data.displayName,
+                id: data.userId,
+                isAuthenticated: true
+            });
             successCallback(data, status, headers, config);
         })
         .error(function(data, status, headers, config) {
@@ -41,8 +58,8 @@
     this.signout = function() {
         if (this.user.isAuthenticated) {
             this.user.name = undefined;
-            this.userId = undefined;
-            this.sessionId = undefined;
+            this.user.id = undefined;
+            this.user.sessionId = undefined;
             this.user.isAuthenticated = false;
             $cookieStore.remove('user');
         }
