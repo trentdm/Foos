@@ -1,4 +1,5 @@
 ﻿app.service('authService', ['$http', '$cookieStore', function ($http, $cookieStore) {
+    var self = this;
     var cookie = $cookieStore.get('user');
     if (cookie) {
         this.user = cookie;
@@ -24,13 +25,9 @@
             rememberMe: true
         })
         .success(function(data, status, headers, config) {
-            $cookieStore.put('user', {
-                name: data.displayName,
-                id: data.userId,
-                isAuthenticated: true
-            });
-                successCallback(data, status, headers, config);
-            })
+            successCallback(data, status, headers, config);
+            $cookieStore.put('user', self.user);
+        })
         .error(function(data, status, headers, config) {
             errorCallback(data, status, headers, config);
         });
@@ -43,12 +40,8 @@
             rememberMe: true
         })
         .success(function(data, status, headers, config) {
-            $cookieStore.put('user', {
-                name: data.displayName,
-                id: data.userId,
-                isAuthenticated: true
-            });
             successCallback(data, status, headers, config);
+            $cookieStore.put('user', self.user);
         })
         .error(function(data, status, headers, config) {
             errorCallback(data, status, headers, config);
@@ -61,6 +54,11 @@
             this.user.id = undefined;
             this.user.sessionId = undefined;
             this.user.isAuthenticated = false;
+            this.user.preferences = {
+                matchesPerPage: 5,
+                teamsPerPage: 10,
+                playersPerPage: 10
+            }
             $cookieStore.remove('user');
         }
         return this.user;
