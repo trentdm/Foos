@@ -5,7 +5,7 @@ namespace Foos.Api.Operations
     [Route("/api/version", "GET")]
     public class Version
     {
-        public double FullVersion { get { return 1.05; } }
+        public double FullVersion { get { return 1.051; } }
     }
 
     public class VersionResponse : ResponseStatus

@@ -4,7 +4,7 @@
         <tbody>
             <tr>
                 <th ng-repeat="header in sort.headerMap">
-                    <a href ng-click="sort.updateReverseSort(header.field); sort.orderBy=header.field;">
+                    <a href ng-click="sort.updateOrderBy(header.field)">
                         {{header.name}}
                         <small style="position:absolute;">
                             <span ng-show="sort.orderBy == header.field && !sort.reverseSort">^</span>

@@ -23,10 +23,12 @@
             headerMap: headerMap,
             orderBy: defaultOrderBy,
             reverseSort: false,
-            updateReverseSort: function(field) {
+            updateOrderBy: function(field) {
                 if (this.orderBy == field) {
                     this.reverseSort = !this.reverseSort;
                 }
+
+                this.orderBy = field;
             }
         };
     }

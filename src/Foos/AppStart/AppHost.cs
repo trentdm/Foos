@@ -7,6 +7,7 @@ using ServiceStack;
 using ServiceStack.Auth;
 using ServiceStack.Caching;
 using ServiceStack.Data;
+using ServiceStack.Logging;
 using ServiceStack.OrmLite;
 using ServiceStack.Text;
 using ServiceStack.Validation;
@@ -19,6 +20,7 @@ namespace Foos.AppStart
 
         public override void Configure(Container container)
         {
+            EnableLogging();
             EnableValidation(container);
             SetJsonCamelCase();
             EnableAutomaticContentReload();
@@ -39,6 +41,8 @@ namespace Foos.AppStart
 
         private void EnableLogging()
         {
+            LogManager.LogFactory = new ConsoleLogFactory(debugEnabled: true);
+            LogManager.LogFactory = new DebugLogFactory(debugEnabled: true);
             Plugins.Add(new RequestLogsFeature());
         }
 
