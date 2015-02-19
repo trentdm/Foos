@@ -22,7 +22,7 @@
         return {
             headerMap: headerMap,
             orderBy: defaultOrderBy,
-            reverseSort: false,
+            reverseSort: true,
             updateOrderBy: function(field) {
                 if (this.orderBy == field) {
                     this.reverseSort = !this.reverseSort;
