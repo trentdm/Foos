@@ -21,6 +21,20 @@ namespace Foos.Api.Operations
         public string UserAuthName { get; set; }
     }
 
+    [Route("/api/match/playerMatches/{playerName}", "GET")]
+    public class SearchPlayerGames
+    {
+        [AutoIncrement]
+        public int Id { get; set; }
+        public DateTime DateTime { get; set; }
+        [Reference]
+        public List<TeamMatch> TeamMatches { get; set; }
+        public string UserAuthId { get; set; }
+        [Ignore]
+        public string UserAuthName { get; set; }
+        public string PlayerName { get; set; }
+    }
+
     public class MatchValidator : AbstractValidator<Match>
     {
         public TeamValidator TeamValidator { get; set; }
@@ -37,6 +51,12 @@ namespace Foos.Api.Operations
     }
     
     public class MatchResponse : ResponseStatus
+    {
+        public int Total { get; set; }
+        public List<Match> Results { get; set; }
+    }
+
+    public class SearchPlayerGamesResponse : ResponseStatus
     {
         public int Total { get; set; }
         public List<Match> Results { get; set; }
