@@ -27,3 +27,4 @@ Foos is an open source project, licensed under the Apache License.
 * Change metadata, auth, register, etc., paths to /api/{service}
 * Customize metadata page, https://github.com/ServiceStack/ServiceStack/wiki/Metadata-page
 * Use modernizr to detect if a client's browser may be unsupported (and notify with alert)
+* Remove reliance on ORM for majority of services, but perhaps maintain for current auth process
