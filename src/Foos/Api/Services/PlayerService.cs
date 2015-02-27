@@ -30,7 +30,7 @@ namespace Foos.Api.Services
                     player.Wins = teamMatches.Count(tm => tm.IsWinner);
                     player.Losses = teamMatches.Count(tm => !tm.IsWinner);
                     player.Games = teamMatches.Count();
-                    player.WinAvg = Math.Round((double) player.Wins / teamMatches.Count, 3);
+                    player.WinAvg = Math.Round((double) player.Wins / teamMatches.Count, 3) * 100;
                     player.Points = playerMatches.Sum(pm => pm.Points);
                     player.PointsAvg = Math.Round((double) player.Points / teamMatches.Count, 3);
                 }

@@ -48,7 +48,7 @@ namespace Foos.Api.Services
                     team.Wins = group.Count(tm => tm.IsWinner);
                     team.Losses = group.Count(tm => !tm.IsWinner);
                     team.Games = group.Count();
-                    team.WinAvg = Math.Round((double)team.Wins / group.Count(), 3);
+                    team.WinAvg = Math.Round((double)team.Wins / group.Count(), 3)*100;
                     team.Points = group.Sum(pm => pm.Score);
                     team.PointsAvg = Math.Round((double)team.Points / group.Count(), 3);
                     teams.Add(team);
