@@ -9,10 +9,24 @@
             menuSize: 7
         };
 
-        $scope.$watch('pages.currentPage + pages.itemsPerPage', function() {
+        var watchPagination = function () {
             var begin = ((pages.currentPage - 1) * pages.itemsPerPage);
             var end = begin + pages.itemsPerPage;
             pages.items = items.slice(begin, end);
+            pages.doShow = items.length > itemsPerPage;
+        }
+
+        $scope.$watch('query', function (queryVal) {
+            if (queryVal != undefined && queryVal != '') {
+                pages.items = items;
+                pages.doShow = false;
+            } else {
+                watchPagination();
+            }
+        });
+
+        $scope.$watch('pages.currentPage + pages.itemsPerPage', function () {
+            watchPagination();
         });
 
         return pages;
