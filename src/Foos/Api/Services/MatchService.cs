@@ -56,6 +56,15 @@ namespace Foos.Api.Services
                     }
                 }
 
+                if (!string.IsNullOrWhiteSpace(request.PlayerName))
+                {
+                    var returnMatches =
+                    matches.Where(
+                        p => p.TeamMatches.Any(q => q.PlayerMatches.Any(r => r.Player.Name.Equals(request.PlayerName))));
+
+                    matches = returnMatches.ToList();
+                }
+
                 return new MatchResponse { Total = matches.Count, Results = matches.OrderByDescending(m => m.DateTime).ToList() };
             }
         }

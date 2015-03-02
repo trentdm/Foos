@@ -1,4 +1,4 @@
-﻿app.controller('PlayerCtrl', ['$scope', 'playerService', 'pageService', function($scope, playerService, pageService) {
+﻿app.controller('PlayerCtrl', ['$scope', 'playerService', 'pageService', 'playermatchModal', function($scope, playerService, pageService, playermatchModal) {
     var successCallback = function (players) {
         $scope.players = players.results;
         $scope.pages = pageService.getPages($scope, players.results, $scope.user.preferences.playersPerPage);
@@ -22,4 +22,8 @@
     };
 
     playerService.getPlayers(successCallback, errorCallback);
+
+    $scope.displayPlayerMatch = function (player) {
+        playermatchModal(player);
+    }
 }]);

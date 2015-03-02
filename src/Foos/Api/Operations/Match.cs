@@ -8,6 +8,7 @@ namespace Foos.Api.Operations
 {
     [Route("/api/match", "GET POST")]
     [Route("/api/match/{id}", "GET")]
+    [Route("/api/match/playerMatches/{playerName}", "GET")]
     [Authenticate(ApplyTo.Post | ApplyTo.Put | ApplyTo.Delete)] 
     public class Match
     {
@@ -19,6 +20,7 @@ namespace Foos.Api.Operations
         public string UserAuthId { get; set; }
         [Ignore]
         public string UserAuthName { get; set; }
+        public string PlayerName { get; set; }
     }
 
     public class MatchValidator : AbstractValidator<Match>
