@@ -56,42 +56,16 @@ namespace Foos.Api.Services
                     }
                 }
 
-                return new MatchResponse { Total = matches.Count, Results = matches.OrderByDescending(m => m.DateTime).ToList() };
-            }
-        }
-
-        public SearchPlayerGamesResponse Get(SearchPlayerGames request)
-        {
-            using (var db = DbConnectionFactory.OpenDbConnection())
-            {
-                var matches = db.LoadSelect<Match>();
-
-                foreach (var match in matches)
+                if (!string.IsNullOrWhiteSpace(request.PlayerName))
                 {
-                    if (!string.IsNullOrEmpty(UserSession.Id))
-                        match.UserAuthName = db.SingleById<UserAuth>(match.UserAuthId).UserName;
-
-                    match.TeamMatches = db.LoadSelect<TeamMatch>(tm => tm.MatchId == match.Id);
-
-                    foreach (var teamMatch in match.TeamMatches)
-                    {
-                        teamMatch.PlayerMatches = db.LoadSelect<PlayerMatch>(pm => pm.TeamMatchId == teamMatch.Id);
-
-                        foreach (var playerMatch in teamMatch.PlayerMatches)
-                        {
-                            playerMatch.Player = db.SingleById<Player>(playerMatch.PlayerId);
-                        }
-
-                        teamMatch.Team = db.SingleById<Team>(teamMatch.TeamId);
-                        teamMatch.Team.Name = string.Join("/", GetTeamNames(teamMatch));
-                    }
-                }
-
-                var returnMatches =
+                    var returnMatches =
                     matches.Where(
                         p => p.TeamMatches.Any(q => q.PlayerMatches.Any(r => r.Player.Name.Equals(request.PlayerName))));
 
-                return new SearchPlayerGamesResponse { Total = matches.Count, Results = returnMatches.OrderByDescending(m => m.DateTime).ToList() };
+                    matches = returnMatches.ToList();
+                }
+
+                return new MatchResponse { Total = matches.Count, Results = matches.OrderByDescending(m => m.DateTime).ToList() };
             }
         }
 

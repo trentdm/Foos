@@ -82,6 +82,16 @@ form select option {
     opacity: 0.8;
 }*/
 
+.searchableHeader {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.searchableBox {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .glyphicon-none:before {
     content: "\2122";
     color: transparent !important;

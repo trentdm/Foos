@@ -8,21 +8,9 @@ namespace Foos.Api.Operations
 {
     [Route("/api/match", "GET POST")]
     [Route("/api/match/{id}", "GET")]
+    [Route("/api/match/playerMatches/{playerName}", "GET")]
     [Authenticate(ApplyTo.Post | ApplyTo.Put | ApplyTo.Delete)] 
     public class Match
-    {
-        [AutoIncrement]
-        public int Id { get; set; }
-        public DateTime DateTime { get; set; }
-        [Reference]
-        public List<TeamMatch> TeamMatches { get; set; }
-        public string UserAuthId { get; set; }
-        [Ignore]
-        public string UserAuthName { get; set; }
-    }
-
-    [Route("/api/match/playerMatches/{playerName}", "GET")]
-    public class SearchPlayerGames
     {
         [AutoIncrement]
         public int Id { get; set; }
@@ -51,12 +39,6 @@ namespace Foos.Api.Operations
     }
     
     public class MatchResponse : ResponseStatus
-    {
-        public int Total { get; set; }
-        public List<Match> Results { get; set; }
-    }
-
-    public class SearchPlayerGamesResponse : ResponseStatus
     {
         public int Total { get; set; }
         public List<Match> Results { get; set; }
